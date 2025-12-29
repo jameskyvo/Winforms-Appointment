@@ -1,0 +1,28 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "C969 Appointment Scheduler/1.0.0": {
+        "runtime": {
+          "C969 Appointment Scheduler.dll": {}
+        },
+        "resources": {
+          "en/C969 Appointment Scheduler.resources.dll": {
+            "locale": "en"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "C969 Appointment Scheduler/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
