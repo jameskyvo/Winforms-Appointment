@@ -10,18 +10,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
+using System.Data.Odbc;
 namespace C969_Appointment_Scheduler
 {
     public partial class Login : Form
     {
         readonly RegionInfo currentRegion = RegionInfo.CurrentRegion;
         readonly ResourceManager rm = new("C969_Appointment_Scheduler.Resources.Login", Assembly.GetExecutingAssembly());
-
         public Login()
         {
             // *** Localization testing for Mexican Spanish. 
-            // Thread.CurrentThread.CurrentCulture = new CultureInfo("es-MX");
-            // Thread.CurrentThread.CurrentUICulture = new CultureInfo("es-MX");
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("es-MX");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("es-MX");
 
             InitializeComponent();
 
@@ -30,6 +30,8 @@ namespace C969_Appointment_Scheduler
             LoginButton.Text = rm.GetString("Login");
             this.Text = rm.GetString("Login");
             UserLocationLabel.Text = rm.GetString("UserLocation") + currentRegion;
+
+            var connString = "Server=localhost;Database=customer_schedule;Uid=myUsername;Pwd=myPassword;";
         }
         
 

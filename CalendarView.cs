@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace C969_Appointment_Scheduler
 {
@@ -15,6 +16,19 @@ namespace C969_Appointment_Scheduler
         public CalendarView()
         {
             InitializeComponent();
+
+            string connStr = "Server=localhost;Database=customer_schedule;Uid=root";
+
+            MySqlDataRepository dbRepo = new MySqlDataRepository(connStr);
+
+
+            var addresses = dbRepo.Query("SELECT * FROM ADDRESS;", "address");
+
+            foreach (var address in addresses)
+            {
+                MessageBox.Show(address);
+            }
+
         }
     }
 }
