@@ -31,7 +31,6 @@ namespace C969_Appointment_Scheduler
             this.Text = rm.GetString("Login");
             UserLocationLabel.Text = rm.GetString("UserLocation") + currentRegion;
 
-            var connString = "Server=localhost;Database=customer_schedule;Uid=myUsername;Pwd=myPassword;";
         }
         
 
@@ -39,7 +38,7 @@ namespace C969_Appointment_Scheduler
         {
             if (UsernameBox.Text.Equals("test") && PasswordBox.Text == "test")
             {
-                CalendarView cv = new();
+                CalendarView cv = new("Server=localhost;Database=customer_schedule;Uid=root;");
                 cv.Show();
                 this.Hide();
             }

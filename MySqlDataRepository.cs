@@ -2,45 +2,53 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace C969_Appointment_Scheduler
 {
-    internal class MySqlDataRepository
+    internal class MySqlDataRepository(string connStr)
     {
-        private string _connStr;
-        public MySqlDataRepository(string connStr)
-        {
-            _connStr = connStr;
-        }
+        private readonly string _connStr = connStr;
 
-        public List<String> Query(string sql, string tableName)
+        public BindingList<Customer> GetAllCustomers()
         {
-            List<String> output = new List<String>();
+            BindingList<Customer> customers = [];
 
-            try
+            using (MySqlConnection conn = new(_connStr))
             {
-                using (MySqlConnection conn = new MySqlConnection(_connStr))
-                using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                try
                 {
                     conn.Open();
 
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    string query = "SELECT * FROM customer";
+                    using MySqlCommand cmd = new(query, conn);
+                    using MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        Customer customer = new()
                         {
-                            string data = reader.GetString(tableName);
-                            output.Add(data);
-                        }
+                            Id = reader.GetInt32("customerid"),
+                            Name = reader.GetString("customerName"),
+                            AddressId = reader.GetInt32("addressId"),
+                            Active = reader.GetSByte("active"),
+                            CreateDate = reader.GetDateTime("createDate"),
+                            CreatedBy = reader.GetString("createdBy"),
+                            LastUpdate = reader.GetDateTime("lastUpdate"),
+                            LastUpdatedBy = reader.GetString("lastUpdateBy")
+                        };
+
+                        customers.Add(customer);
                     }
-                    return output;
                 }
-            } catch
-            {
-                return output;
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}");
+                }
             }
+            return customers;
         }
     }
 }

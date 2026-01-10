@@ -13,22 +13,25 @@ namespace C969_Appointment_Scheduler
 {
     public partial class CalendarView : Form
     {
-        public CalendarView()
+        private readonly string _connStr;
+        public CalendarView(string connStr)
         {
+            _connStr = connStr;
+            MySqlDataRepository db = new(_connStr);
+
             InitializeComponent();
+            CustomersList.DataSource = db.GetAllCustomers();
+            CustomersList.DisplayMember = "Name";
+        }
 
-            string connStr = "Server=localhost;Database=customer_schedule;Uid=root";
+        private void AddButton_Click(object sender, EventArgs e)
+        {
+            AddCustomer addCustomer = new();
+            addCustomer.Show();
+        }
 
-            MySqlDataRepository dbRepo = new MySqlDataRepository(connStr);
-
-
-            var addresses = dbRepo.Query("SELECT * FROM ADDRESS;", "address");
-
-            foreach (var address in addresses)
-            {
-                MessageBox.Show(address);
-            }
-
+        private void CustomersList_SelectedIndexChanged(object sender, EventArgs e)
+        {
         }
     }
 }
