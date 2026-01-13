@@ -37,54 +37,62 @@
             AddButton = new Button();
             CancelButton = new Button();
             PhoneNumberBox = new MaskedTextBox();
+            CountryLabel = new Label();
+            CityLabel = new Label();
+            Address2TextBox = new TextBox();
+            Address2Label = new Label();
+            PostalCodeLabel = new Label();
+            PostalCodeTextBox = new MaskedTextBox();
+            CountryDropDown = new ComboBox();
+            CityDropDown = new ComboBox();
             SuspendLayout();
             // 
             // NameLabel
             // 
             NameLabel.AutoSize = true;
-            NameLabel.Location = new Point(16, 28);
+            NameLabel.Location = new Point(16, 29);
             NameLabel.Name = "NameLabel";
             NameLabel.Size = new Size(53, 15);
             NameLabel.TabIndex = 0;
-            NameLabel.Text = "* Name: ";
+            NameLabel.Text = "Name: * ";
             // 
             // AddressLabel
             // 
             AddressLabel.AutoSize = true;
-            AddressLabel.Location = new Point(16, 72);
+            AddressLabel.Location = new Point(16, 158);
             AddressLabel.Name = "AddressLabel";
-            AddressLabel.Size = new Size(63, 15);
+            AddressLabel.Size = new Size(60, 15);
             AddressLabel.TabIndex = 1;
-            AddressLabel.Text = "* Address: ";
+            AddressLabel.Text = "Address: *";
             // 
             // PhoneNumberLabel
             // 
             PhoneNumberLabel.AutoSize = true;
-            PhoneNumberLabel.Location = new Point(16, 115);
+            PhoneNumberLabel.Location = new Point(16, 287);
             PhoneNumberLabel.Name = "PhoneNumberLabel";
             PhoneNumberLabel.Size = new Size(102, 15);
             PhoneNumberLabel.TabIndex = 2;
-            PhoneNumberLabel.Text = "* Phone Number: ";
+            PhoneNumberLabel.Text = "Phone Number:  *";
             // 
             // NameTextBox
             // 
-            NameTextBox.Location = new Point(120, 25);
+            NameTextBox.Location = new Point(138, 25);
             NameTextBox.Name = "NameTextBox";
-            NameTextBox.Size = new Size(135, 23);
+            NameTextBox.Size = new Size(190, 23);
             NameTextBox.TabIndex = 3;
             // 
             // AddressTextBox
             // 
-            AddressTextBox.Location = new Point(120, 69);
+            AddressTextBox.Location = new Point(138, 154);
             AddressTextBox.Name = "AddressTextBox";
-            AddressTextBox.Size = new Size(135, 23);
+            AddressTextBox.Size = new Size(190, 23);
             AddressTextBox.TabIndex = 4;
             // 
             // activeBox
             // 
             activeBox.AutoSize = true;
             activeBox.CheckAlign = ContentAlignment.TopRight;
-            activeBox.Location = new Point(20, 149);
+            activeBox.Location = new Point(16, 322);
             activeBox.Name = "activeBox";
             activeBox.Size = new Size(59, 19);
             activeBox.TabIndex = 6;
@@ -93,7 +101,7 @@
             // 
             // AddButton
             // 
-            AddButton.Location = new Point(20, 215);
+            AddButton.Location = new Point(16, 358);
             AddButton.Name = "AddButton";
             AddButton.Size = new Size(75, 23);
             AddButton.TabIndex = 7;
@@ -103,7 +111,7 @@
             // 
             // CancelButton
             // 
-            CancelButton.Location = new Point(120, 215);
+            CancelButton.Location = new Point(116, 358);
             CancelButton.Name = "CancelButton";
             CancelButton.Size = new Size(75, 23);
             CancelButton.TabIndex = 8;
@@ -112,17 +120,94 @@
             // 
             // PhoneNumberBox
             // 
-            PhoneNumberBox.Location = new Point(120, 112);
+            PhoneNumberBox.Location = new Point(138, 283);
             PhoneNumberBox.Mask = "999-000-0000";
             PhoneNumberBox.Name = "PhoneNumberBox";
-            PhoneNumberBox.Size = new Size(135, 23);
+            PhoneNumberBox.Size = new Size(190, 23);
             PhoneNumberBox.TabIndex = 9;
+            // 
+            // CountryLabel
+            // 
+            CountryLabel.AutoSize = true;
+            CountryLabel.Location = new Point(16, 72);
+            CountryLabel.Name = "CountryLabel";
+            CountryLabel.Size = new Size(56, 15);
+            CountryLabel.TabIndex = 10;
+            CountryLabel.Text = "Country: ";
+            // 
+            // CityLabel
+            // 
+            CityLabel.AutoSize = true;
+            CityLabel.Location = new Point(16, 115);
+            CityLabel.Name = "CityLabel";
+            CityLabel.Size = new Size(34, 15);
+            CityLabel.TabIndex = 11;
+            CityLabel.Text = "City: ";
+            CityLabel.Click += CityLabel_Click;
+            // 
+            // Address2TextBox
+            // 
+            Address2TextBox.Location = new Point(138, 197);
+            Address2TextBox.Name = "Address2TextBox";
+            Address2TextBox.Size = new Size(190, 23);
+            Address2TextBox.TabIndex = 13;
+            // 
+            // Address2Label
+            // 
+            Address2Label.AutoSize = true;
+            Address2Label.Location = new Point(16, 201);
+            Address2Label.Name = "Address2Label";
+            Address2Label.Size = new Size(64, 15);
+            Address2Label.TabIndex = 12;
+            Address2Label.Text = "Address 2: ";
+            // 
+            // PostalCodeLabel
+            // 
+            PostalCodeLabel.AutoSize = true;
+            PostalCodeLabel.Location = new Point(16, 244);
+            PostalCodeLabel.Name = "PostalCodeLabel";
+            PostalCodeLabel.Size = new Size(67, 15);
+            PostalCodeLabel.TabIndex = 14;
+            PostalCodeLabel.Text = "PostalCode";
+            // 
+            // PostalCodeTextBox
+            // 
+            PostalCodeTextBox.Location = new Point(138, 240);
+            PostalCodeTextBox.Mask = "00000-9999";
+            PostalCodeTextBox.Name = "PostalCodeTextBox";
+            PostalCodeTextBox.Size = new Size(190, 23);
+            PostalCodeTextBox.TabIndex = 15;
+            // 
+            // CountryDropDown
+            // 
+            CountryDropDown.FormattingEnabled = true;
+            CountryDropDown.Location = new Point(138, 68);
+            CountryDropDown.Name = "CountryDropDown";
+            CountryDropDown.Size = new Size(190, 23);
+            CountryDropDown.TabIndex = 16;
+            CountryDropDown.SelectedIndexChanged += CountryDropDown_SelectedIndexChanged;
+            // 
+            // CityDropDown
+            // 
+            CityDropDown.FormattingEnabled = true;
+            CityDropDown.Location = new Point(138, 111);
+            CityDropDown.Name = "CityDropDown";
+            CityDropDown.Size = new Size(190, 23);
+            CityDropDown.TabIndex = 17;
             // 
             // AddCustomer
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(306, 286);
+            ClientSize = new Size(392, 418);
+            Controls.Add(CityDropDown);
+            Controls.Add(CountryDropDown);
+            Controls.Add(PostalCodeTextBox);
+            Controls.Add(PostalCodeLabel);
+            Controls.Add(Address2TextBox);
+            Controls.Add(Address2Label);
+            Controls.Add(CityLabel);
+            Controls.Add(CountryLabel);
             Controls.Add(PhoneNumberBox);
             Controls.Add(CancelButton);
             Controls.Add(AddButton);
@@ -134,6 +219,7 @@
             Controls.Add(NameLabel);
             Name = "AddCustomer";
             Text = "New Customer";
+            Load += AddCustomer_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -149,5 +235,13 @@
         private Button AddButton;
         private Button CancelButton;
         private MaskedTextBox PhoneNumberBox;
+        private Label CountryLabel;
+        private Label CityLabel;
+        private TextBox Address2TextBox;
+        private Label Address2Label;
+        private Label PostalCodeLabel;
+        private MaskedTextBox PostalCodeTextBox;
+        private ComboBox CountryDropDown;
+        private ComboBox CityDropDown;
     }
 }

@@ -12,9 +12,16 @@ namespace C969_Appointment_Scheduler
 {
     public partial class AddCustomer : Form
     {
-        public AddCustomer()
+        private readonly string _connStr;
+        MySqlDataRepository _repository;
+        public AddCustomer(string connStr)
         {
+            _connStr = connStr;
+            _repository = new(_connStr);
             InitializeComponent();
+
+            CountryDropDown.DataSource = _repository.GetAllCountries();
+            CountryDropDown.DisplayMember = "Name";
         }
 
         private void AddButton_Click(object sender, EventArgs e)
@@ -23,17 +30,22 @@ namespace C969_Appointment_Scheduler
 
             if (isValidInput)
             {
-                Customer customer = new()
+                // Try to create an address
+                try
                 {
-                    Id = reader.GetInt32("customerid"),
-                    Name = reader.GetString("customerName"),
-                    AddressId = reader.GetInt32("addressId"),
-                    Active = reader.GetSByte("active"),
-                    CreateDate = reader.GetDateTime("createDate"),
-                    CreatedBy = reader.GetString("createdBy"),
-                    LastUpdate = reader.GetDateTime("lastUpdate"),
-                    LastUpdatedBy = reader.GetString("lastUpdateBy")
-                };
+                    Address address = new()
+                    {
+                        StreetAddress = NameTextBox.Text,
+                        CountryId = CountryDropDown.
+
+                    };
+
+                }
+
+                // Add address to DB
+                // Try to create a customer
+                // Add customer to db
+
             }
 
         }
@@ -63,6 +75,27 @@ namespace C969_Appointment_Scheduler
             }
 
             return true;
+        }
+
+        private void CityLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddCustomer_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CountryDropDown_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CountryDropDown.SelectedItem is Country)
+            {
+                Country country = (Country)CountryDropDown.SelectedItem;
+                CityDropDown.DataSource = _repository.RetrieveCitiesInCountry(country.Id);
+                CityDropDown.DisplayMember = "Name";
+
+            }
         }
     }
 }
