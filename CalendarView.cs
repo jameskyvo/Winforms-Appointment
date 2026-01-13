@@ -14,6 +14,7 @@ namespace C969_Appointment_Scheduler
     public partial class CalendarView : Form
     {
         private readonly string _connStr;
+
         public CalendarView(string connStr)
         {
             _connStr = connStr;
@@ -26,7 +27,7 @@ namespace C969_Appointment_Scheduler
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            AddCustomer addCustomer = new();
+            AddCustomer addCustomer = new(_connStr);
             addCustomer.Show();
         }
 
