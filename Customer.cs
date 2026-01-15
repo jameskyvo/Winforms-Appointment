@@ -10,7 +10,7 @@ namespace C969_Appointment_Scheduler
     {
         public int? Id { get; set; }
         public string? Name { get; set; }
-        public int? AddressId { get; set; }
+        public long? AddressId { get; set; }
         public sbyte Active { get; set; } = 0;
         public DateTime? CreateDate { get; set; } = DateTime.Now;
         public string? CreatedBy { get; set; }

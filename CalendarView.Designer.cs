@@ -81,6 +81,7 @@
             DeleteButton.TabIndex = 4;
             DeleteButton.Text = "Delete";
             DeleteButton.UseVisualStyleBackColor = true;
+            DeleteButton.Click += DeleteButton_Click;
             // 
             // CalendarView
             // 

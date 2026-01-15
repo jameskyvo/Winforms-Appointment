@@ -33,28 +33,53 @@ namespace C969_Appointment_Scheduler
                 // Try to create an address
                 try
                 {
+                    City city = new();
+                    if (CityDropDown.SelectedItem is City)
+                    {
+                        city = (City)CityDropDown.SelectedItem;
+                    }
                     Address address = new()
                     {
-                        StreetAddress = NameTextBox.Text,
-                        CountryId = CountryDropDown.
-
+                        StreetAddress = AddressTextBox.Text,
+                        SecondaryStreetAddress = Address2TextBox.Text,
+                        CityId = city.Id,
+                        PostalCode = PostalCodeTextBox.Text,
+                        PhoneNumber = PhoneNumberBox.Text,
+                        CreateDate = DateTime.UtcNow,
+                        CreatedBy = "test",
+                        LastUpdate = DateTime.UtcNow,
+                        LastUpdatedBy = "test",
                     };
-
+                    // Add address to DB
+                    address.Id = _repository.AddAddress(address);
+                    // Try to create a customer
+                    Customer customer = new()
+                    {
+                        Name = NameTextBox.Text,
+                        AddressId = address.Id,
+                        Active = Convert.ToSByte(activeBox.Checked),
+                        CreateDate = DateTime.UtcNow,
+                        CreatedBy = "test",
+                        LastUpdate = DateTime.UtcNow,
+                        LastUpdatedBy = "test",
+                    };
+                    // Add customer to db
+                    _repository.AddCustomer(customer, address);
+                    this.Close();
                 }
-
-                // Add address to DB
-                // Try to create a customer
-                // Add customer to db
-
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}");
+                }
             }
 
         }
 
         private bool CheckValidInput()
         {
-            string name = NameTextBox.Text;
-            string address = AddressTextBox.Text;
-            string phoneNumber = PhoneNumberBox.Text;
+            string name = NameTextBox.Text.Trim();
+            string address = AddressTextBox.Text.Trim();
+            string phoneNumber = PhoneNumberBox.Text.Trim();
             // Check to make sure the name box is not empty or whitespace
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -68,9 +93,17 @@ namespace C969_Appointment_Scheduler
                 return false;
             }
             // Check to make sure the phone number does not contain underscores
-            if (!PhoneNumberBox.MaskCompleted)
+            string phoneText = PhoneNumberBox.Text;
+            if (!PhoneNumberBox.MaskCompleted || phoneText.Contains('_') || phoneText.Contains(' '))
             {
                 MessageBox.Show("Please enter a valid phone number.");
+                return false;
+            }
+
+            string postalCode = PostalCodeTextBox.Text;
+            if (!PostalCodeTextBox.MaskCompleted || postalCode.Contains('_') || postalCode.Contains(' '))
+            {
+                MessageBox.Show("Please enter a valid postal code.");
                 return false;
             }
 
@@ -94,7 +127,6 @@ namespace C969_Appointment_Scheduler
                 Country country = (Country)CountryDropDown.SelectedItem;
                 CityDropDown.DataSource = _repository.RetrieveCitiesInCountry(country.Id);
                 CityDropDown.DisplayMember = "Name";
-
             }
         }
     }

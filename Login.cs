@@ -38,7 +38,7 @@ namespace C969_Appointment_Scheduler
         {
             if (UsernameBox.Text.Equals("test") && PasswordBox.Text == "test")
             {
-                CalendarView cv = new("Server=localhost;Database=customer_schedule;Uid=root;");
+                CalendarView cv = new("Server=localhost;Port=3306;Database=customer_schedule;Uid=sqlUser;Password=Passw0rd!");
                 cv.Show();
                 this.Hide();
             }

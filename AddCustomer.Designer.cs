@@ -79,14 +79,14 @@
             NameTextBox.Location = new Point(138, 25);
             NameTextBox.Name = "NameTextBox";
             NameTextBox.Size = new Size(190, 23);
-            NameTextBox.TabIndex = 3;
+            NameTextBox.TabIndex = 0;
             // 
             // AddressTextBox
             // 
             AddressTextBox.Location = new Point(138, 154);
             AddressTextBox.Name = "AddressTextBox";
             AddressTextBox.Size = new Size(190, 23);
-            AddressTextBox.TabIndex = 4;
+            AddressTextBox.TabIndex = 3;
             // 
             // activeBox
             // 
@@ -95,7 +95,7 @@
             activeBox.Location = new Point(16, 322);
             activeBox.Name = "activeBox";
             activeBox.Size = new Size(59, 19);
-            activeBox.TabIndex = 6;
+            activeBox.TabIndex = 7;
             activeBox.Text = "Active";
             activeBox.UseVisualStyleBackColor = true;
             // 
@@ -104,7 +104,7 @@
             AddButton.Location = new Point(16, 358);
             AddButton.Name = "AddButton";
             AddButton.Size = new Size(75, 23);
-            AddButton.TabIndex = 7;
+            AddButton.TabIndex = 8;
             AddButton.Text = "Add";
             AddButton.UseVisualStyleBackColor = true;
             AddButton.Click += AddButton_Click;
@@ -114,7 +114,7 @@
             CancelButton.Location = new Point(116, 358);
             CancelButton.Name = "CancelButton";
             CancelButton.Size = new Size(75, 23);
-            CancelButton.TabIndex = 8;
+            CancelButton.TabIndex = 9;
             CancelButton.Text = "Cancel";
             CancelButton.UseVisualStyleBackColor = true;
             // 
@@ -124,7 +124,7 @@
             PhoneNumberBox.Mask = "999-000-0000";
             PhoneNumberBox.Name = "PhoneNumberBox";
             PhoneNumberBox.Size = new Size(190, 23);
-            PhoneNumberBox.TabIndex = 9;
+            PhoneNumberBox.TabIndex = 6;
             // 
             // CountryLabel
             // 
@@ -150,7 +150,7 @@
             Address2TextBox.Location = new Point(138, 197);
             Address2TextBox.Name = "Address2TextBox";
             Address2TextBox.Size = new Size(190, 23);
-            Address2TextBox.TabIndex = 13;
+            Address2TextBox.TabIndex = 4;
             // 
             // Address2Label
             // 
@@ -176,7 +176,7 @@
             PostalCodeTextBox.Mask = "00000-9999";
             PostalCodeTextBox.Name = "PostalCodeTextBox";
             PostalCodeTextBox.Size = new Size(190, 23);
-            PostalCodeTextBox.TabIndex = 15;
+            PostalCodeTextBox.TabIndex = 5;
             // 
             // CountryDropDown
             // 
@@ -184,7 +184,7 @@
             CountryDropDown.Location = new Point(138, 68);
             CountryDropDown.Name = "CountryDropDown";
             CountryDropDown.Size = new Size(190, 23);
-            CountryDropDown.TabIndex = 16;
+            CountryDropDown.TabIndex = 1;
             CountryDropDown.SelectedIndexChanged += CountryDropDown_SelectedIndexChanged;
             // 
             // CityDropDown
@@ -193,7 +193,7 @@
             CityDropDown.Location = new Point(138, 111);
             CityDropDown.Name = "CityDropDown";
             CityDropDown.Size = new Size(190, 23);
-            CityDropDown.TabIndex = 17;
+            CityDropDown.TabIndex = 2;
             // 
             // AddCustomer
             // 
