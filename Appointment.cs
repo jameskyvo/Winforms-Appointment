@@ -19,7 +19,7 @@ namespace C969_Appointment_Scheduler
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public DateTime CreateDate { get; set; } = DateTime.UtcNow;
-        public DateTime LastUpdate { get; set; } = DateTime.UtcNow
+        public DateTime LastUpdate { get; set; } = DateTime.UtcNow;
         public required string LastUpdateBy { get; set; }
     }
 }
