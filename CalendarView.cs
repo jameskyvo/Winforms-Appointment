@@ -53,8 +53,18 @@ namespace C969_Appointment_Scheduler
             {
                 return;
             }
+            // Check to see if any appointments have a customerid matching the customer to delete
+            // If so, remove the appointment first.
+            try
+            {
+                _repository.DeleteAppointments(customer);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
+            }
 
-            //delete from sql
+            //delete the customer from sql
             try
             {
                 _repository.DeleteCustomer(customer);

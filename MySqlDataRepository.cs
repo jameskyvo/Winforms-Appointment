@@ -200,5 +200,21 @@ WHERE customerid = @customerid";
                 }
             }
         }
+
+        internal void DeleteAppointments(Customer customer)
+        {
+            using (MySqlConnection conn = new(_connStr))
+            {
+                conn.Open();
+
+                string query = @"DELETE FROM appointment
+WHERE customerid = @customerid";
+                using (MySqlCommand cmd = new(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@customerid", customer.Id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
