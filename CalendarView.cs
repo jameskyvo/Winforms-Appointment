@@ -16,19 +16,21 @@ namespace C969_Appointment_Scheduler
     {
         private readonly string _connStr;
         MySqlDataRepository _repository;
+        public BindingList<Customer> _customers;
         public CalendarView(string connStr)
         {
             _connStr = connStr;
             _repository = new(_connStr);
 
             InitializeComponent();
-            CustomersList.DataSource = _repository.GetAllCustomers();
+            _customers = _repository.GetAllCustomers();
+            CustomersList.DataSource = _customers;
             CustomersList.DisplayMember = "Name";
         }
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            AddCustomer addCustomer = new(_connStr);
+            AddCustomer addCustomer = new(_connStr, _customers);
             addCustomer.Show();
         }
 
@@ -38,12 +40,7 @@ namespace C969_Appointment_Scheduler
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            Customer customer = new();
-            // Get the selected object
-            if (CustomersList.SelectedItem is Customer)
-            {
-                customer = (Customer)CustomersList.SelectedItem;
-            }
+            Customer customer = GetSelectedCustomer();
             // Open confirmation box to verify if they want to delete the record
             DialogResult result = MessageBox.Show($"Are you sure you want to delete {customer.Name}?",
                 "Confirm Delete",
@@ -69,13 +66,32 @@ namespace C969_Appointment_Scheduler
             {
                 _repository.DeleteCustomer(customer);
                 // if it succeeds, delete the item from the databoundlist.
-                CustomersList.DataSource = _repository.GetAllCustomers();
+                _customers.Remove(customer);
             }
             catch (Exception ex)
             {
                 // if the sql record fails, pop up the exception in a messagebox
                 MessageBox.Show($"{ex.Message}");
             }
+        }
+
+        private void UpdateButton_Click(object sender, EventArgs e)
+        {
+            Customer customer = GetSelectedCustomer();
+
+            UpdateCustomer updateCustomer = new(_connStr, customer, _customers);
+            updateCustomer.Show();
+        }
+
+        private Customer GetSelectedCustomer()
+        {
+            Customer customer = new();
+            if (CustomersList.SelectedItem is Customer)
+            {
+                customer = (Customer)CustomersList.SelectedItem;
+            }
+
+            return customer;
         }
     }
 }

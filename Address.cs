@@ -11,8 +11,8 @@ namespace C969_Appointment_Scheduler
         public long Id { get; set; }
         public required string StreetAddress { get; set; }
         public string? SecondaryStreetAddress { get; set; }
-        public int CityId { get; init; }
-        public string PostalCode { get; set; }
+        public int CityId { get; set; }
+        public required string PostalCode { get; set; }
         public required string PhoneNumber { get; set; }
 
         public DateTime CreateDate { get; set; }

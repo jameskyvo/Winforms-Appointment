@@ -1,6 +1,6 @@
 ﻿namespace C969_Appointment_Scheduler
 {
-    partial class AddCustomer
+    partial class UpdateCustomer
     {
         /// <summary>
         /// Required designer variable.
@@ -34,7 +34,7 @@
             NameTextBox = new TextBox();
             AddressTextBox = new TextBox();
             activeBox = new CheckBox();
-            AddButton = new Button();
+            UpdateButton = new Button();
             CancelButton = new Button();
             PhoneNumberBox = new MaskedTextBox();
             CountryLabel = new Label();
@@ -99,15 +99,15 @@
             activeBox.Text = "Active";
             activeBox.UseVisualStyleBackColor = true;
             // 
-            // AddButton
+            // UpdateButton
             // 
-            AddButton.Location = new Point(16, 358);
-            AddButton.Name = "AddButton";
-            AddButton.Size = new Size(75, 23);
-            AddButton.TabIndex = 8;
-            AddButton.Text = "Add";
-            AddButton.UseVisualStyleBackColor = true;
-            AddButton.Click += AddButton_Click;
+            UpdateButton.Location = new Point(16, 358);
+            UpdateButton.Name = "UpdateButton";
+            UpdateButton.Size = new Size(75, 23);
+            UpdateButton.TabIndex = 8;
+            UpdateButton.Text = "Update";
+            UpdateButton.UseVisualStyleBackColor = true;
+            UpdateButton.Click += UpdateButton_Click;
             // 
             // CancelButton
             // 
@@ -194,7 +194,7 @@
             CityDropDown.Size = new Size(190, 23);
             CityDropDown.TabIndex = 2;
             // 
-            // AddCustomer
+            // UpdateCustomer
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -209,15 +209,16 @@
             Controls.Add(CountryLabel);
             Controls.Add(PhoneNumberBox);
             Controls.Add(CancelButton);
-            Controls.Add(AddButton);
+            Controls.Add(UpdateButton);
             Controls.Add(activeBox);
             Controls.Add(AddressTextBox);
             Controls.Add(NameTextBox);
             Controls.Add(PhoneNumberLabel);
             Controls.Add(AddressLabel);
             Controls.Add(NameLabel);
-            Name = "AddCustomer";
-            Text = "New Customer";
+            Name = "UpdateCustomer";
+            Text = "Update Customer";
+            Load += UpdateCustomer_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -230,7 +231,7 @@
         private TextBox NameTextBox;
         private TextBox AddressTextBox;
         private CheckBox activeBox;
-        private Button AddButton;
+        private Button UpdateButton;
         private Button CancelButton;
         private MaskedTextBox PhoneNumberBox;
         private Label CountryLabel;

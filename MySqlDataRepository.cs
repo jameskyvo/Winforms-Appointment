@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -214,6 +215,157 @@ WHERE customerid = @customerid";
                     cmd.Parameters.AddWithValue("@customerid", customer.Id);
                     cmd.ExecuteNonQuery();
                 }
+            }
+        }
+
+        internal Address GetAddressFromCustomer(Customer customer)
+        {
+            using MySqlConnection conn = new(_connStr);
+            conn.Open();
+            string query = @"SELECT * FROM address WHERE addressId = @addressId
+LIMIT 1;";
+            using (MySqlCommand cmd = new(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@addressId", customer.AddressId);
+                using MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Address address = new()
+                    {
+                        Id = reader.GetInt32("addressId"),
+                        StreetAddress = reader.GetString("address"),
+                        SecondaryStreetAddress =
+    reader.IsDBNull("address2") ? null : reader.GetString("address2"),
+                        CityId = reader.GetInt32("cityId"),
+                        PostalCode = reader.GetString("postalCode"),
+                        PhoneNumber = reader.GetString("phone"),
+                        CreateDate = reader.GetDateTime("createDate"),
+                        CreatedBy = reader.GetString("createdBy"),
+                        LastUpdate = DateTime.UtcNow,
+                        LastUpdatedBy = "test"
+                    };
+                    return address;
+                }
+            }
+            throw new InvalidOperationException($"No address found for addressId {customer.AddressId}");
+        }
+        internal City GetCityFromAddress(Address address)
+        {
+            using MySqlConnection conn = new(_connStr);
+            conn.Open();
+            string query = @"SELECT * FROM city WHERE cityId = @cityId";
+            using (MySqlCommand cmd = new(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@cityId", address.CityId);
+                using MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    City city = new()
+                    {
+                        Name = reader.GetString("city"),
+                        CountryId = reader.GetInt32("countryId"),
+                        CreateDate = reader.GetDateTime("createDate"),
+                        CreatedBy= reader.GetString("createdBy"),
+                        LastUpdate = DateTime.UtcNow,
+                        LastUpdatedBy = "test",
+                    };
+                    return city;
+                }
+            }
+            throw new InvalidOperationException($"No address found for cityId {address.CityId}");
+        }
+
+        internal Country GetCountryFromCity(City city)
+        {
+            using MySqlConnection conn = new(_connStr);
+            conn.Open();
+            string query = @"SELECT * FROM country WHERE countryId = @countryId";
+            using (MySqlCommand cmd = new(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@countryId", city.CountryId);
+                using MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Country country = new()
+                    {
+                        Name = reader.GetString("country"),
+                        CreateDate = reader.GetDateTime("createDate"),
+                        CreatedBy = reader.GetString("createdBy"),
+                        LastUpdate = DateTime.UtcNow,
+                        LastUpdatedBy = "test",
+                    };
+                    return country;
+                }
+            }
+            throw new InvalidOperationException($"No address found for cityId {city.CountryId}");
+        }
+
+        internal void UpdateCustomer(Customer customer, Address address)
+        {
+            try
+            {
+                using (MySqlConnection conn = new(_connStr))
+                {
+                    conn.Open();
+
+                    string query = @"UPDATE customer
+SET customerName = @customerName, addressId = @addressId, active = @active, createDate = @createDate, createdBy = @createdBy, lastUpdate = @lastUpdate, lastUpdateBy = @lastUpdateBy 
+WHERE customerid = @customerId" ;
+
+                    using (MySqlCommand cmd = new(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@customerId", customer.Id);
+                        cmd.Parameters.AddWithValue("@customerName", customer.Name);
+                        cmd.Parameters.AddWithValue("@addressId", address.Id);
+                        cmd.Parameters.AddWithValue("@active", customer.Active);
+                        cmd.Parameters.AddWithValue("@createDate", customer.CreateDate);
+                        cmd.Parameters.AddWithValue("@createdBy", customer.CreatedBy);
+                        cmd.Parameters.AddWithValue("@lastUpdate", customer.LastUpdate);
+                        cmd.Parameters.AddWithValue("@lastUpdateBy", customer.LastUpdatedBy);
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        MessageBox.Show($"Rows affected: {rowsAffected}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+        }
+
+        internal void UpdateAddress(Address address)
+        {
+            try
+            {
+                using (MySqlConnection conn = new(_connStr))
+                {
+                    conn.Open();
+
+                    string query = @"UPDATE address
+SET address = @address, address2 = @address2, cityId = @cityId, postalCode = @postalCode, phone = @phone, createDate = @createDate, createdBy = @createdBy, lastUpdate = @lastUpdate, lastUpdateBy = @lastUpdateBy 
+WHERE addressId = @addressId";
+
+                    using (MySqlCommand cmd = new(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@addressId", address.Id);
+                        cmd.Parameters.AddWithValue("@address", address.StreetAddress);
+                        cmd.Parameters.AddWithValue("@address2", address.SecondaryStreetAddress);
+                        cmd.Parameters.AddWithValue("@cityId", address.CityId);
+                        cmd.Parameters.AddWithValue("@postalCode", address.PostalCode);
+                        cmd.Parameters.AddWithValue("@phone", address.PhoneNumber);
+                        cmd.Parameters.AddWithValue("@createDate", address.CreateDate);
+                        cmd.Parameters.AddWithValue("@createdBy", address.CreatedBy);
+                        cmd.Parameters.AddWithValue("@lastUpdate", address.LastUpdate);
+                        cmd.Parameters.AddWithValue("@lastUpdateBy", address.LastUpdatedBy);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
             }
         }
     }

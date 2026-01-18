@@ -72,6 +72,7 @@
             UpdateButton.TabIndex = 3;
             UpdateButton.Text = "Update";
             UpdateButton.UseVisualStyleBackColor = true;
+            UpdateButton.Click += UpdateButton_Click;
             // 
             // DeleteButton
             // 
