@@ -15,32 +15,28 @@ namespace C969_Appointment_Scheduler
         private readonly string _connStr = connStr;
         public long AddAddress(Address address)
         {
-            using (MySqlConnection conn = new(_connStr))
-            {
-                conn.Open();
+            using MySqlConnection conn = new(_connStr);
+            conn.Open();
 
-                string query = @"INSERT INTO address
+            string query = @"INSERT INTO address
 (address, address2, cityId, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdateBy)
 VALUES
 (@address, @address2, @cityId, @postalCode, @phone, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
 
-                using (MySqlCommand cmd = new(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@address", address.StreetAddress);
-                    cmd.Parameters.AddWithValue("@address2", address.SecondaryStreetAddress);
-                    cmd.Parameters.AddWithValue("@cityId", address.CityId);
-                    cmd.Parameters.AddWithValue("@postalCode", address.PostalCode);
-                    cmd.Parameters.AddWithValue("@phone", address.PhoneNumber);
-                    cmd.Parameters.AddWithValue("@createDate", address.CreateDate);
-                    cmd.Parameters.AddWithValue("@createdBy", address.CreatedBy);
-                    cmd.Parameters.AddWithValue("@lastUpdate", address.LastUpdate);
-                    cmd.Parameters.AddWithValue("@lastUpdateBy", address.LastUpdatedBy);
+            using MySqlCommand cmd = new(query, conn);
+            cmd.Parameters.AddWithValue("@address", address.StreetAddress);
+            cmd.Parameters.AddWithValue("@address2", address.SecondaryStreetAddress);
+            cmd.Parameters.AddWithValue("@cityId", address.CityId);
+            cmd.Parameters.AddWithValue("@postalCode", address.PostalCode);
+            cmd.Parameters.AddWithValue("@phone", address.PhoneNumber);
+            cmd.Parameters.AddWithValue("@createDate", address.CreateDate);
+            cmd.Parameters.AddWithValue("@createdBy", address.CreatedBy);
+            cmd.Parameters.AddWithValue("@lastUpdate", address.LastUpdate);
+            cmd.Parameters.AddWithValue("@lastUpdateBy", address.LastUpdatedBy);
 
-                    cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQuery();
 
-                    return cmd.LastInsertedId;
-                }
-            }
+            return cmd.LastInsertedId;
         }
         public BindingList<Country> GetAllCountries()
         {
@@ -157,28 +153,24 @@ VALUES
         {
             try
             {
-                using (MySqlConnection conn = new(_connStr))
-                {
-                    conn.Open();
+                using MySqlConnection conn = new(_connStr);
+                conn.Open();
 
-                    string query = @"INSERT into customer
+                string query = @"INSERT into customer
 (customerName, addressId, active, createDate, createdBy, lastUpdate, lastUpdateBy)
 VALUES
 (@customerName, @addressId, @active, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
 
-                    using (MySqlCommand cmd = new(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@customerName", customer.Name);
-                        cmd.Parameters.AddWithValue("@addressId", address.Id);
-                        cmd.Parameters.AddWithValue("@active", customer.Active);
-                        cmd.Parameters.AddWithValue("@createDate", customer.CreateDate);
-                        cmd.Parameters.AddWithValue("@createdBy", customer.CreatedBy);
-                        cmd.Parameters.AddWithValue("@lastUpdate", customer.LastUpdate);
-                        cmd.Parameters.AddWithValue("@lastUpdateBy", customer.LastUpdatedBy);
+                using MySqlCommand cmd = new(query, conn);
+                cmd.Parameters.AddWithValue("@customerName", customer.Name);
+                cmd.Parameters.AddWithValue("@addressId", address.Id);
+                cmd.Parameters.AddWithValue("@active", customer.Active);
+                cmd.Parameters.AddWithValue("@createDate", customer.CreateDate);
+                cmd.Parameters.AddWithValue("@createdBy", customer.CreatedBy);
+                cmd.Parameters.AddWithValue("@lastUpdate", customer.LastUpdate);
+                cmd.Parameters.AddWithValue("@lastUpdateBy", customer.LastUpdatedBy);
 
-                        cmd.ExecuteNonQuery();
-                    }
-                }
+                cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
@@ -188,34 +180,26 @@ VALUES
 
         internal void DeleteCustomer(Customer customer)
         {
-            using (MySqlConnection conn = new(_connStr))
-            {
-                conn.Open();
+            using MySqlConnection conn = new(_connStr);
+            conn.Open();
 
-                string query = @"DELETE FROM customer
+            string query = @"DELETE FROM customer
 WHERE customerid = @customerid";
-                using (MySqlCommand cmd = new(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@customerid", customer.Id);
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            using MySqlCommand cmd = new(query, conn);
+            cmd.Parameters.AddWithValue("@customerid", customer.Id);
+            cmd.ExecuteNonQuery();
         }
 
         internal void DeleteAppointments(Customer customer)
         {
-            using (MySqlConnection conn = new(_connStr))
-            {
-                conn.Open();
+            using MySqlConnection conn = new(_connStr);
+            conn.Open();
 
-                string query = @"DELETE FROM appointment
+            string query = @"DELETE FROM appointment
 WHERE customerid = @customerid";
-                using (MySqlCommand cmd = new(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@customerid", customer.Id);
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            using MySqlCommand cmd = new(query, conn);
+            cmd.Parameters.AddWithValue("@customerid", customer.Id);
+            cmd.ExecuteNonQuery();
         }
 
         internal Address GetAddressFromCustomer(Customer customer)

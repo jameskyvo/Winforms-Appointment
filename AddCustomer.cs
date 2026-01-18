@@ -13,7 +13,7 @@ namespace C969_Appointment_Scheduler
     public partial class AddCustomer : Form
     {
         private readonly string _connStr;
-        MySqlDataRepository _repository;
+        private MySqlDataRepository _repository;
         BindingList<Customer> _customers;
         public AddCustomer(string connStr, BindingList<Customer> customers)
         {
@@ -98,8 +98,7 @@ namespace C969_Appointment_Scheduler
                 return false;
             }
             // Check to make sure the phone number does not contain underscores
-            string phoneText = PhoneNumberBox.Text;
-            if (!PhoneNumberBox.MaskCompleted || phoneText.Contains('_') || phoneText.Contains(' '))
+            if (!PhoneNumberBox.MaskCompleted || phoneNumber.Contains('_') || phoneNumber.Contains(' '))
             {
                 MessageBox.Show("Please enter a valid phone number.");
                 return false;

@@ -35,7 +35,7 @@
             AddressTextBox = new TextBox();
             activeBox = new CheckBox();
             AddButton = new Button();
-            CancelButton = new Button();
+            CancelUpdateButton = new Button();
             PhoneNumberBox = new MaskedTextBox();
             CountryLabel = new Label();
             CityLabel = new Label();
@@ -111,12 +111,12 @@
             // 
             // CancelButton
             // 
-            CancelButton.Location = new Point(116, 358);
-            CancelButton.Name = "CancelButton";
-            CancelButton.Size = new Size(75, 23);
-            CancelButton.TabIndex = 9;
-            CancelButton.Text = "Cancel";
-            CancelButton.UseVisualStyleBackColor = true;
+            CancelUpdateButton.Location = new Point(116, 358);
+            CancelUpdateButton.Name = "CancelButton";
+            CancelUpdateButton.Size = new Size(75, 23);
+            CancelUpdateButton.TabIndex = 9;
+            CancelUpdateButton.Text = "Cancel";
+            CancelUpdateButton.UseVisualStyleBackColor = true;
             // 
             // PhoneNumberBox
             // 
@@ -208,7 +208,7 @@
             Controls.Add(CityLabel);
             Controls.Add(CountryLabel);
             Controls.Add(PhoneNumberBox);
-            Controls.Add(CancelButton);
+            Controls.Add(CancelUpdateButton);
             Controls.Add(AddButton);
             Controls.Add(activeBox);
             Controls.Add(AddressTextBox);
@@ -231,7 +231,7 @@
         private TextBox AddressTextBox;
         private CheckBox activeBox;
         private Button AddButton;
-        private Button CancelButton;
+        private Button CancelUpdateButton;
         private MaskedTextBox PhoneNumberBox;
         private Label CountryLabel;
         private Label CityLabel;
