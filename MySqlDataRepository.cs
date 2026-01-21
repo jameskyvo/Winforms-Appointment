@@ -413,5 +413,43 @@ WHERE addressId = @addressId";
             }
             return appointments;
         }
+
+        internal BindingList<User> GetAllUsers()
+        {
+            BindingList<User> users = [];
+
+            using (MySqlConnection conn = new(_connStr))
+            {
+                try
+                {
+                    conn.Open();
+
+                    string query = "SELECT * FROM user";
+                    using MySqlCommand cmd = new(query, conn);
+                    using MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        User user = new()
+                        {
+                            Id = reader.GetInt32("userid"),
+                            UserName = reader.GetString("userName"),
+                            Password = reader.GetString("password"),
+                            Active = reader.GetSByte("active"),
+                            CreateDate = reader.GetDateTime("createDate"),
+                            CreatedBy = reader.GetString("createdBy"),
+                            LastUpdate = reader.GetDateTime("lastUpdate"),
+                            LastUpdatedBy = reader.GetString("lastUpdateBy"),
+                        };
+
+                        users.Add(user);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}");
+                }
+            }
+            return users;
+        }
     }
 }

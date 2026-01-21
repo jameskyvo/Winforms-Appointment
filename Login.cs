@@ -20,8 +20,8 @@ namespace C969_Appointment_Scheduler
         public Login()
         {
             // *** Localization testing for Mexican Spanish. 
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("es-MX");
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("es-MX");
+            // Thread.CurrentThread.CurrentCulture = new CultureInfo("es-MX");
+            // Thread.CurrentThread.CurrentUICulture = new CultureInfo("es-MX");
 
             InitializeComponent();
 

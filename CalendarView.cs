@@ -18,6 +18,7 @@ namespace C969_Appointment_Scheduler
         MySqlDataRepository _repository;
         public BindingList<Customer> _customers;
         public BindingList<Appointment> _appointments = [];
+        public BindingList<User> _users = [];
         public CalendarView(string connStr)
         {
             _connStr = connStr;
@@ -30,6 +31,8 @@ namespace C969_Appointment_Scheduler
 
             _appointments = _repository.GetAllAppointments();
             AppointmentsGridView.DataSource = _appointments;
+
+            _users = _repository.GetAllUsers();
         }
 
         private void AddButton_Click(object sender, EventArgs e)
@@ -100,7 +103,8 @@ namespace C969_Appointment_Scheduler
 
         private void AddAppointmentButton_Click(object sender, EventArgs e)
         {
-
+            AddAppointment addAppointment = new(_customers, _users);
+            addAppointment.Show();
         }
     }
 }

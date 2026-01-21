@@ -40,3 +40,4 @@ C:\Users\james\source\repos\C969 Appointment Scheduler\C969 Appointment Schedule
 C:\Users\james\source\repos\C969 Appointment Scheduler\C969 Appointment Scheduler\obj\Debug\net8.0-windows\C969 App.4425DE92.Up2Date
 C:\Users\james\source\repos\C969 Appointment Scheduler\C969 Appointment Scheduler\obj\Debug\net8.0-windows\C969_Appointment_Scheduler.AddCustomer.resources
 C:\Users\james\source\repos\C969 Appointment Scheduler\C969 Appointment Scheduler\obj\Debug\net8.0-windows\C969_Appointment_Scheduler.UpdateCustomer.resources
+C:\Users\james\source\repos\C969 Appointment Scheduler\C969 Appointment Scheduler\obj\Debug\net8.0-windows\C969_Appointment_Scheduler.AddAppointment.resources
