@@ -94,7 +94,15 @@ namespace C969_Appointment_Scheduler
 
         private void DeleteAppButton_Click(object sender, EventArgs e)
         {
+
             Appointment appointment = VerificationHelper.RetrieveValidSelection<Appointment>(AppointmentsGridView);
+            DialogResult result = MessageBox.Show($"Are you sure you want to delete {appointment.Title}?",
+                "Confirm Delete",
+                MessageBoxButtons.YesNo);
+            if (result != DialogResult.Yes)
+            {
+                return;
+            }
 
             _repository.DeleteAppointment(appointment);
             _appointments.Remove(appointment);
