@@ -1,7 +1,7 @@
 ﻿
 namespace C969_Appointment_Scheduler
 {
-    internal class City
+    public class City
     {
         public int Id { get; set; }
         public required string Name { get; set; }

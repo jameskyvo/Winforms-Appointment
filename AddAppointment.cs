@@ -14,12 +14,14 @@ namespace C969_Appointment_Scheduler
     {
         public BindingList<Customer> _customers;
         private readonly BindingList<User> _users;
+        private readonly BindingList<Appointment> _appointments;
+        public MySqlDataRepository _repository;
         public bool _isAdjustingDate = false;
         public bool _isAdjustingTime = false;
         public const int minTime = 9;
         public const int maxTime = 17;
 
-        public AddAppointment(BindingList<Customer> customers, BindingList<User> users)
+        public AddAppointment(BindingList<Customer> customers, BindingList<User> users, BindingList<Appointment> appointments, MySqlDataRepository repository)
         {
             InitializeComponent();
             _customers = customers;
@@ -27,25 +29,85 @@ namespace C969_Appointment_Scheduler
 
             _users = users;
             UserDropDown.DataSource = _users;
+
+            _appointments = appointments;
+            _repository = repository;
             EnforceBusinessHours(StartTimePicker.Value, StartTimePicker);
             EnforceBusinessHours(EndTimePicker.Value, EndTimePicker);
-
         }
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-
-            bool validInput = CheckValidInput();
-
-            if (validInput)
+            try
             {
+                bool validInput = CheckValidInput();
+                Customer customer = RetrieveValidCustomer();
+                User user = RetrieveValidUser();
+                {
+                    // Create a new appointment object and assign respective values
+                    Appointment appointment = new()
+                    {
+                        CustomerId = customer.Id,
+                        UserId = user.Id,
+                        Title = TitleTextBox.Text,
+                        Description = DescriptionTextBox.Text,
+                        Location = LocationBox.Text,
+                        Contact = ContactTextBox.Text,
+                        Type = TypeTextBox.Text,
+                        Url = UrlTextBox.Text,
+                        // TODO: COMBINE START DATE AND TIME TOGETHER TO SET START AND
+                        Start = CreateDateTime(StartDatePicker.Value, StartTimePicker.Value),
+                        End = CreateDateTime(EndDatePicker.Value, EndDatePicker.Value),
+                        CreateDate = DateTime.UtcNow,
+                        CreatedBy = "test",
+                        LastUpdate = DateTime.UtcNow,
+                        LastUpdateBy = "test",
 
+                    };
+                    // Submit to db
+                    _repository.AddAppointment(appointment);
+                    // Add to bindinglist.
+                    _appointments.Add(appointment);
+                }
             }
-            // Create a new appointment object and assign respective values
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+        }
 
-            // Submit to db
+        private DateTime CreateDateTime(DateTime date, DateTime time)
+        {
+            DateTime dateOnly = date.Date;
+            DateTime timeOnly = time;
 
-            // Add to bindinglist.
+            DateTime combined = dateOnly.Date + timeOnly.TimeOfDay;
+
+            return combined;
+        }
+
+        private User RetrieveValidUser()
+        {
+            if (UserDropDown.SelectedItem is not User || UserDropDown.SelectedItem is null)
+            {
+                throw new ArgumentException("Dropdown does not have a valid user selected.");
+            }
+            else
+            {
+                return (User)UserDropDown.SelectedItem;
+            }
+        }
+
+        private Customer RetrieveValidCustomer()
+        {
+            if (CustomerDropDown.SelectedItem is not Customer || CustomerDropDown.SelectedItem is null)
+            {
+                throw new ArgumentException("Dropdown does not have a valid customer selected.");
+            }
+            else
+            {
+                return (Customer)CustomerDropDown.SelectedItem;
+            }
         }
 
         private bool CheckValidInput()
@@ -62,28 +124,25 @@ namespace C969_Appointment_Scheduler
                     return validInput;
                 }
                 // Verify the type Box is not null and is trimmed
-                if (string.IsNullOrEmpty(TypeTextBox.Text))
+                if (string.IsNullOrEmpty(TypeTextBox.Text) || string.IsNullOrWhiteSpace(TypeTextBox.Text))
                 {
                     MessageBox.Show("Please enter a type.");
                     return validInput;
                 }
-                // Verify the start time is before the end time
-                if (startTime > endTime)
+                // Verify the user id is a valid user.
+                if (UserDropDown.SelectedValue == null)
                 {
-                    MessageBox.Show("The start date cannot be after the end time.");
+                    MessageBox.Show("The user dropbox value must be selected.");
                     return validInput;
                 }
-                // Verify both times are between 9 and 5 pm
-                return true; //TODO REMOVE
-                // Verify the user id is a valid user.
+                validInput = true;
+                return validInput;
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"{ex.Message}");
                 return false;
             }
-
-
         }
 
         private void StartDatePicker_ValueChanged(object sender, EventArgs e)
@@ -96,9 +155,22 @@ namespace C969_Appointment_Scheduler
             _isAdjustingDate = true;
             DateTime startDate = StartDatePicker.Value.Date;
             DateTime endDate = EndDatePicker.Value.Date;
+
+            if (startDate.DayOfWeek == DayOfWeek.Saturday)
+            {
+                StartDatePicker.Value = startDate.AddDays(2);
+            }
+            else if (startDate.DayOfWeek == DayOfWeek.Sunday)
+            {
+                StartDatePicker.Value = startDate.AddDays(1);
+            }
             if (startDate > endDate)
             {
-                StartDatePicker.Value = EndDatePicker.Value.Date;
+                EndDatePicker.Value = StartDatePicker.Value.Date;
+            }
+            if (startDate < DateTime.Now)
+            {
+                StartDatePicker.Value = DateTime.Now;
             }
             _isAdjustingDate = false;
         }
@@ -128,6 +200,14 @@ namespace C969_Appointment_Scheduler
             _isAdjustingDate = true;
             DateTime startDate = StartDatePicker.Value.Date;
             DateTime endDate = EndDatePicker.Value.Date;
+            if (endDate.DayOfWeek == DayOfWeek.Saturday)
+            {
+                EndDatePicker.Value = endDate.AddDays(2);
+            }
+            else if (endDate.DayOfWeek == DayOfWeek.Sunday)
+            {
+                EndDatePicker.Value = endDate.AddDays(1);
+            }
             if (startDate > endDate)
             {
                 EndDatePicker.Value = StartDatePicker.Value.Date;
@@ -147,7 +227,24 @@ namespace C969_Appointment_Scheduler
             var endTime = EndTimePicker.Value;
             if (startTime > endTime)
             {
-                StartTimePicker.Value = EndTimePicker.Value.AddMinutes(-30);
+                EndTimePicker.Value = StartTimePicker.Value.AddMinutes(30);
+            }
+            _isAdjustingTime = false;
+        }
+
+        private void EndTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            if (_isAdjustingTime)
+            {
+                return;
+            }
+
+            _isAdjustingTime = true;
+            var startTime = StartTimePicker.Value;
+            var endTime = EndTimePicker.Value;
+            if (endTime < startTime)
+            {
+                EndTimePicker.Value = StartTimePicker.Value.AddMinutes(30);
             }
             _isAdjustingTime = false;
         }

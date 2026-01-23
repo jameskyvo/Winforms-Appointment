@@ -103,7 +103,7 @@ namespace C969_Appointment_Scheduler
 
         private void AddAppointmentButton_Click(object sender, EventArgs e)
         {
-            AddAppointment addAppointment = new(_customers, _users);
+            AddAppointment addAppointment = new(_customers, _users, _appointments, _repository);
             addAppointment.Show();
         }
     }

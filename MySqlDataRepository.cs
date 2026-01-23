@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace C969_Appointment_Scheduler
 {
-    internal class MySqlDataRepository(string connStr)
+    public class MySqlDataRepository(string connStr)
     {
         private readonly string _connStr = connStr;
         public long AddAddress(Address address)
@@ -450,6 +450,40 @@ WHERE addressId = @addressId";
                 }
             }
             return users;
+        }
+
+        public void AddAppointment(Appointment appointment)
+        {
+            using (MySqlConnection conn = new(_connStr))
+            {
+                conn.Open();
+
+                string query = @"INSERT INTO appointment
+(customerId, userId, title, description, location, contact, type, url, start, end, createDate, createdBy, lastUpdate, lastUpdateBy)
+VALUES
+(@customerId, @userId, @title, @description, @location, @contact, @type, @url, @start, @end, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
+
+                using (MySqlCommand cmd = new(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@customerId", appointment.CustomerId);
+                    cmd.Parameters.AddWithValue("@userId", appointment.UserId);
+                    cmd.Parameters.AddWithValue("@title", appointment.Title);
+                    cmd.Parameters.AddWithValue("@description", appointment.Description);
+                    cmd.Parameters.AddWithValue("@location", appointment.Location);
+                    cmd.Parameters.AddWithValue("@contact", appointment.Contact);
+                    cmd.Parameters.AddWithValue("@type", appointment.Type);
+                    cmd.Parameters.AddWithValue("@url", appointment.Url);
+                    cmd.Parameters.AddWithValue("@start", appointment.Start);
+                    cmd.Parameters.AddWithValue("@end", appointment.End);
+                    cmd.Parameters.AddWithValue("@createDate", appointment.CreateDate);
+                    cmd.Parameters.AddWithValue("@createdBy", appointment.CreatedBy);
+                    cmd.Parameters.AddWithValue("@lastUpdate", appointment.LastUpdate);
+                    cmd.Parameters.AddWithValue("@lastUpdateBy", appointment.LastUpdateBy);
+                    
+                    cmd.ExecuteNonQuery();
+                    appointment.AppointmentId = (int)cmd.LastInsertedId;
+                }
+            }
         }
     }
 }

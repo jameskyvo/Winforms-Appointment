@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace C969_Appointment_Scheduler
 {
-    internal class Address
+    public class Address
     {
         public long Id { get; set; }
         public required string StreetAddress { get; set; }

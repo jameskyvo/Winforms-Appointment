@@ -8,7 +8,7 @@ namespace C969_Appointment_Scheduler
 {
     public class Appointment
     {
-        public int AppointmentId { get; set; }
+        public int? AppointmentId { get; set; }
         public required int CustomerId { get; set; }
         public required int UserId { get; set; }
         public required string Title { get; set; }
