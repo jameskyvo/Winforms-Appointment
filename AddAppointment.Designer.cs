@@ -33,7 +33,7 @@
             TypeLabel = new Label();
             StartTimeLabel = new Label();
             EndTimeLabel = new Label();
-            z = new Label();
+            UserIdLabel = new Label();
             CustomerDropDown = new ComboBox();
             customerBindingSource = new BindingSource(components);
             TypeTextBox = new TextBox();
@@ -47,7 +47,7 @@
             StartDatePicker = new DateTimePicker();
             EndDatePicker = new DateTimePicker();
             TitleTextBox = new TextBox();
-            TextLabel = new Label();
+            TitleLabel = new Label();
             DescriptionTextBox = new TextBox();
             DescriptionLabel = new Label();
             LocationLabel = new Label();
@@ -56,6 +56,7 @@
             UrlLabel = new Label();
             ContactTextBox = new TextBox();
             UrlTextBox = new TextBox();
+            CancelOutButton = new Button();
             ((System.ComponentModel.ISupportInitialize)customerBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)userBindingSource).BeginInit();
             SuspendLayout();
@@ -96,14 +97,14 @@
             EndTimeLabel.TabIndex = 3;
             EndTimeLabel.Text = "End Time:";
             // 
-            // z
+            // UserIdLabel
             // 
-            z.AutoSize = true;
-            z.Location = new Point(256, 231);
-            z.Name = "z";
-            z.Size = new Size(46, 15);
-            z.TabIndex = 4;
-            z.Text = "User Id:";
+            UserIdLabel.AutoSize = true;
+            UserIdLabel.Location = new Point(256, 231);
+            UserIdLabel.Name = "UserIdLabel";
+            UserIdLabel.Size = new Size(46, 15);
+            UserIdLabel.TabIndex = 4;
+            UserIdLabel.Text = "User Id:";
             // 
             // CustomerDropDown
             // 
@@ -217,14 +218,14 @@
             TitleTextBox.Size = new Size(200, 23);
             TitleTextBox.TabIndex = 15;
             // 
-            // TextLabel
+            // TitleLabel
             // 
-            TextLabel.AutoSize = true;
-            TextLabel.Location = new Point(32, 89);
-            TextLabel.Name = "TextLabel";
-            TextLabel.Size = new Size(29, 15);
-            TextLabel.TabIndex = 16;
-            TextLabel.Text = "Title";
+            TitleLabel.AutoSize = true;
+            TitleLabel.Location = new Point(32, 89);
+            TitleLabel.Name = "TitleLabel";
+            TitleLabel.Size = new Size(29, 15);
+            TitleLabel.TabIndex = 16;
+            TitleLabel.Text = "Title";
             // 
             // DescriptionTextBox
             // 
@@ -290,11 +291,22 @@
             UrlTextBox.Size = new Size(200, 23);
             UrlTextBox.TabIndex = 24;
             // 
+            // CancelOutButton
+            // 
+            CancelOutButton.Location = new Point(129, 504);
+            CancelOutButton.Name = "CancelOutButton";
+            CancelOutButton.Size = new Size(75, 23);
+            CancelOutButton.TabIndex = 25;
+            CancelOutButton.Text = "Cancel";
+            CancelOutButton.UseVisualStyleBackColor = true;
+            CancelOutButton.Click += CancelOutButton_Click;
+            // 
             // AddAppointment
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(493, 558);
+            Controls.Add(CancelOutButton);
             Controls.Add(UrlTextBox);
             Controls.Add(ContactTextBox);
             Controls.Add(UrlLabel);
@@ -303,7 +315,7 @@
             Controls.Add(LocationLabel);
             Controls.Add(DescriptionLabel);
             Controls.Add(DescriptionTextBox);
-            Controls.Add(TextLabel);
+            Controls.Add(TitleLabel);
             Controls.Add(TitleTextBox);
             Controls.Add(EndDatePicker);
             Controls.Add(StartDatePicker);
@@ -315,7 +327,7 @@
             Controls.Add(StartTimePicker);
             Controls.Add(TypeTextBox);
             Controls.Add(CustomerDropDown);
-            Controls.Add(z);
+            Controls.Add(UserIdLabel);
             Controls.Add(EndTimeLabel);
             Controls.Add(StartTimeLabel);
             Controls.Add(TypeLabel);
@@ -334,7 +346,7 @@
         private Label TypeLabel;
         private Label StartTimeLabel;
         private Label EndTimeLabel;
-        private Label z;
+        private Label UserIdLabel;
         private ComboBox CustomerDropDown;
         private BindingSource customerBindingSource;
         private TextBox TypeTextBox;
@@ -349,7 +361,7 @@
         private DateTimePicker StartDatePicker;
         private DateTimePicker EndDatePicker;
         private TextBox TitleTextBox;
-        private Label TextLabel;
+        private Label TitleLabel;
         private TextBox DescriptionTextBox;
         private Label DescriptionLabel;
         private Label LocationLabel;
@@ -358,5 +370,6 @@
         private Label UrlLabel;
         private TextBox ContactTextBox;
         private TextBox UrlTextBox;
+        private Button CancelOutButton;
     }
 }

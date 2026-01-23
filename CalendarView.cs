@@ -41,10 +41,6 @@ namespace C969_Appointment_Scheduler
             addCustomer.Show();
         }
 
-        private void CustomersList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
         private void DeleteButton_Click(object sender, EventArgs e)
         {
             Customer customer = GetSelectedCustomer();

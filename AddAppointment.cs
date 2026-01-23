@@ -41,33 +41,36 @@ namespace C969_Appointment_Scheduler
             try
             {
                 bool validInput = CheckValidInput();
-                Customer customer = RetrieveValidCustomer();
-                User user = RetrieveValidUser();
+                Customer customer = VerificationHelper.RetrieveValidSelection<Customer>(CustomerDropDown);
+                User user = VerificationHelper.RetrieveValidSelection<User>(UserDropDown);
                 {
-                    // Create a new appointment object and assign respective values
-                    Appointment appointment = new()
+                    if (validInput)
                     {
-                        CustomerId = customer.Id,
-                        UserId = user.Id,
-                        Title = TitleTextBox.Text,
-                        Description = DescriptionTextBox.Text,
-                        Location = LocationBox.Text,
-                        Contact = ContactTextBox.Text,
-                        Type = TypeTextBox.Text,
-                        Url = UrlTextBox.Text,
-                        // TODO: COMBINE START DATE AND TIME TOGETHER TO SET START AND
-                        Start = CreateDateTime(StartDatePicker.Value, StartTimePicker.Value),
-                        End = CreateDateTime(EndDatePicker.Value, EndDatePicker.Value),
-                        CreateDate = DateTime.UtcNow,
-                        CreatedBy = "test",
-                        LastUpdate = DateTime.UtcNow,
-                        LastUpdateBy = "test",
+                        // Create a new appointment object and assign respective values
+                        Appointment appointment = new()
+                        {
+                            CustomerId = customer.Id,
+                            UserId = user.Id,
+                            Title = TitleTextBox.Text,
+                            Description = DescriptionTextBox.Text,
+                            Location = LocationBox.Text,
+                            Contact = ContactTextBox.Text,
+                            Type = TypeTextBox.Text,
+                            Url = UrlTextBox.Text,
+                            Start = CreateDateTime(StartDatePicker.Value, StartTimePicker.Value),
+                            End = CreateDateTime(EndDatePicker.Value, EndTimePicker.Value),
+                            CreateDate = DateTime.UtcNow,
+                            CreatedBy = "test",
+                            LastUpdate = DateTime.UtcNow,
+                            LastUpdateBy = "test",
 
-                    };
-                    // Submit to db
-                    _repository.AddAppointment(appointment);
-                    // Add to bindinglist.
-                    _appointments.Add(appointment);
+                        };
+                        // Submit to db
+                        _repository.AddAppointment(appointment);
+                        // Add to bindinglist.
+                        _appointments.Add(appointment);
+                        this.Close();
+                    }
                 }
             }
             catch (Exception ex)
@@ -76,72 +79,30 @@ namespace C969_Appointment_Scheduler
             }
         }
 
-        private DateTime CreateDateTime(DateTime date, DateTime time)
-        {
-            DateTime dateOnly = date.Date;
-            DateTime timeOnly = time;
-
-            DateTime combined = dateOnly.Date + timeOnly.TimeOfDay;
-
-            return combined;
-        }
-
-        private User RetrieveValidUser()
-        {
-            if (UserDropDown.SelectedItem is not User || UserDropDown.SelectedItem is null)
-            {
-                throw new ArgumentException("Dropdown does not have a valid user selected.");
-            }
-            else
-            {
-                return (User)UserDropDown.SelectedItem;
-            }
-        }
-
-        private Customer RetrieveValidCustomer()
-        {
-            if (CustomerDropDown.SelectedItem is not Customer || CustomerDropDown.SelectedItem is null)
-            {
-                throw new ArgumentException("Dropdown does not have a valid customer selected.");
-            }
-            else
-            {
-                return (Customer)CustomerDropDown.SelectedItem;
-            }
-        }
+        private DateTime CreateDateTime(DateTime date, DateTime time) => date.Date + time.TimeOfDay;
 
         private bool CheckValidInput()
         {
             bool validInput = false;
-            DateTime startTime = StartTimePicker.Value;
-            DateTime endTime = EndTimePicker.Value;
             try
             {
-                // Verify the customer dropbox is selected
-                if (CustomerDropDown.SelectedValue == null)
-                {
-                    MessageBox.Show("The customer dropbox value must be selected.");
-                    return validInput;
-                }
-                // Verify the type Box is not null and is trimmed
-                if (string.IsNullOrEmpty(TypeTextBox.Text) || string.IsNullOrWhiteSpace(TypeTextBox.Text))
-                {
-                    MessageBox.Show("Please enter a type.");
-                    return validInput;
-                }
-                // Verify the user id is a valid user.
-                if (UserDropDown.SelectedValue == null)
-                {
-                    MessageBox.Show("The user dropbox value must be selected.");
-                    return validInput;
-                }
+                // Ensure values are not null and are trimmed.
+                VerificationHelper.VerifyDropdown(CustomerDropDown, CustomerLabel);
+                VerificationHelper.VerifyTextBox(TitleTextBox, TitleLabel);
+                VerificationHelper.VerifyTextBox(DescriptionTextBox, DescriptionLabel);
+                VerificationHelper.VerifyTextBox(TypeTextBox, TypeLabel);
+                VerificationHelper.VerifyTextBox(LocationBox, LocationLabel);
+                VerificationHelper.VerifyTextBox(ContactTextBox, ContactLabel);
+                // VerificationHelper.VerifyTextBox(UrlTextBox, UrlLabel); URL is assumed to be nullable.
+                VerificationHelper.VerifyDropdown(UserDropDown, UserIdLabel);
                 validInput = true;
                 return validInput;
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"{ex.Message}");
-                return false;
+                validInput = false;
+                return validInput;
             }
         }
 
@@ -153,25 +114,9 @@ namespace C969_Appointment_Scheduler
             }
 
             _isAdjustingDate = true;
-            DateTime startDate = StartDatePicker.Value.Date;
-            DateTime endDate = EndDatePicker.Value.Date;
-
-            if (startDate.DayOfWeek == DayOfWeek.Saturday)
-            {
-                StartDatePicker.Value = startDate.AddDays(2);
-            }
-            else if (startDate.DayOfWeek == DayOfWeek.Sunday)
-            {
-                StartDatePicker.Value = startDate.AddDays(1);
-            }
-            if (startDate > endDate)
-            {
-                EndDatePicker.Value = StartDatePicker.Value.Date;
-            }
-            if (startDate < DateTime.Now)
-            {
-                StartDatePicker.Value = DateTime.Now;
-            }
+            VerificationHelper.EnforceBusinessDays(StartDatePicker);
+            VerificationHelper.EnforceEndDateAfterStartDate(StartDatePicker, EndDatePicker);
+            VerificationHelper.PreventPastScheduling(StartDatePicker);
             _isAdjustingDate = false;
         }
 
@@ -198,20 +143,8 @@ namespace C969_Appointment_Scheduler
             }
 
             _isAdjustingDate = true;
-            DateTime startDate = StartDatePicker.Value.Date;
-            DateTime endDate = EndDatePicker.Value.Date;
-            if (endDate.DayOfWeek == DayOfWeek.Saturday)
-            {
-                EndDatePicker.Value = endDate.AddDays(2);
-            }
-            else if (endDate.DayOfWeek == DayOfWeek.Sunday)
-            {
-                EndDatePicker.Value = endDate.AddDays(1);
-            }
-            if (startDate > endDate)
-            {
-                EndDatePicker.Value = StartDatePicker.Value.Date;
-            }
+            VerificationHelper.EnforceBusinessDays(EndDatePicker);
+            VerificationHelper.EnforceEndDateAfterStartDate(StartDatePicker, EndDatePicker);
             _isAdjustingDate = false;
         }
 
@@ -223,12 +156,7 @@ namespace C969_Appointment_Scheduler
             }
 
             _isAdjustingTime = true;
-            var startTime = StartTimePicker.Value;
-            var endTime = EndTimePicker.Value;
-            if (startTime > endTime)
-            {
-                EndTimePicker.Value = StartTimePicker.Value.AddMinutes(30);
-            }
+            VerificationHelper.EnforceEndTimeAfterStartTime(StartTimePicker, EndTimePicker);
             _isAdjustingTime = false;
         }
 
@@ -240,13 +168,13 @@ namespace C969_Appointment_Scheduler
             }
 
             _isAdjustingTime = true;
-            var startTime = StartTimePicker.Value;
-            var endTime = EndTimePicker.Value;
-            if (endTime < startTime)
-            {
-                EndTimePicker.Value = StartTimePicker.Value.AddMinutes(30);
-            }
+            VerificationHelper.EnforceStartTimeBeforeEndTime(StartTimePicker, EndTimePicker);
             _isAdjustingTime = false;
+        }
+
+        private void CancelOutButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

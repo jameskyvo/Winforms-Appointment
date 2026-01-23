@@ -76,7 +76,6 @@
             CustomersList.Name = "CustomersList";
             CustomersList.Size = new Size(156, 349);
             CustomersList.TabIndex = 0;
-            CustomersList.SelectedIndexChanged += CustomersList_SelectedIndexChanged;
             // 
             // CustomersLabel
             // 
