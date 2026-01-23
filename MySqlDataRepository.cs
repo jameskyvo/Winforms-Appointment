@@ -485,5 +485,21 @@ VALUES
                 }
             }
         }
+
+        internal void DeleteAppointment(Appointment appointment)
+        {
+            using (MySqlConnection conn = new(_connStr))
+            {
+                conn.Open();
+
+                string query = @"DELETE FROM appointment
+WHERE appointmentId  = @appointmentId";
+                using (MySqlCommand cmd = new(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@appointmentId", appointment.AppointmentId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

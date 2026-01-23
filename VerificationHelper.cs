@@ -80,5 +80,23 @@ namespace C969_Appointment_Scheduler
             }
             return value;
         }
+        internal static T RetrieveValidSelection<T>(ListBox listBox) where T : class
+        {
+            if (listBox.SelectedItem is not T value)
+            {
+                throw new ArgumentException(
+                    $"Listbox does not have a valid {typeof(T).Name} selected.");
+            }
+            return value;
+        }
+        internal static T RetrieveValidSelection<T>(DataGridView dgv) where T : class
+        {
+            if (dgv.CurrentRow.DataBoundItem is not T value)
+            {
+                throw new ArgumentException(
+                    $"Data grid view does not have a valid {typeof(T).Name} selected.");
+            }
+            return value;
+        }
     }
 }

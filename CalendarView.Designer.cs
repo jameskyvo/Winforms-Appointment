@@ -56,7 +56,7 @@
             StartRangeLabel = new Label();
             AddAppointmentButton = new Button();
             UpdateAppointmentButton = new Button();
-            button1 = new Button();
+            DeleteAppButton = new Button();
             EndRangePicker = new DateTimePicker();
             EndRangeLabel = new Label();
             ViewAllAppointmentsButton = new Button();
@@ -285,14 +285,15 @@
             UpdateAppointmentButton.Text = "Update";
             UpdateAppointmentButton.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // DeleteAppButton
             // 
-            button1.Location = new Point(828, 95);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 11;
-            button1.Text = "Delete";
-            button1.UseVisualStyleBackColor = true;
+            DeleteAppButton.Location = new Point(828, 95);
+            DeleteAppButton.Name = "DeleteAppButton";
+            DeleteAppButton.Size = new Size(75, 23);
+            DeleteAppButton.TabIndex = 11;
+            DeleteAppButton.Text = "Delete";
+            DeleteAppButton.UseVisualStyleBackColor = true;
+            DeleteAppButton.Click += DeleteAppButton_Click;
             // 
             // EndRangePicker
             // 
@@ -335,7 +336,7 @@
             Controls.Add(ViewAllAppointmentsButton);
             Controls.Add(EndRangeLabel);
             Controls.Add(EndRangePicker);
-            Controls.Add(button1);
+            Controls.Add(DeleteAppButton);
             Controls.Add(UpdateAppointmentButton);
             Controls.Add(AddAppointmentButton);
             Controls.Add(StartRangeLabel);
@@ -370,7 +371,7 @@
         private Label StartRangeLabel;
         private Button AddAppointmentButton;
         private Button UpdateAppointmentButton;
-        private Button button1;
+        private Button DeleteAppButton;
         private DateTimePicker EndRangePicker;
         private Label EndRangeLabel;
         private Button ViewAllAppointmentsButton;

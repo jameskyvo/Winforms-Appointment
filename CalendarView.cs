@@ -43,7 +43,7 @@ namespace C969_Appointment_Scheduler
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            Customer customer = GetSelectedCustomer();
+            Customer customer = VerificationHelper.RetrieveValidSelection<Customer>(CustomersList);
             // Open confirmation box to verify if they want to delete the record
             DialogResult result = MessageBox.Show($"Are you sure you want to delete {customer.Name}?",
                 "Confirm Delete",
@@ -80,27 +80,24 @@ namespace C969_Appointment_Scheduler
 
         private void UpdateButton_Click(object sender, EventArgs e)
         {
-            Customer customer = GetSelectedCustomer();
+            Customer customer = VerificationHelper.RetrieveValidSelection<Customer>(CustomersList);
 
             UpdateCustomer updateCustomer = new(_connStr, customer, _customers);
             updateCustomer.Show();
-        }
-
-        private Customer GetSelectedCustomer()
-        {
-            Customer customer = new();
-            if (CustomersList.SelectedItem is Customer)
-            {
-                customer = (Customer)CustomersList.SelectedItem;
-            }
-
-            return customer;
         }
 
         private void AddAppointmentButton_Click(object sender, EventArgs e)
         {
             AddAppointment addAppointment = new(_customers, _users, _appointments, _repository);
             addAppointment.Show();
+        }
+
+        private void DeleteAppButton_Click(object sender, EventArgs e)
+        {
+            Appointment appointment = VerificationHelper.RetrieveValidSelection<Appointment>(AppointmentsGridView);
+
+            _repository.DeleteAppointment(appointment);
+            _appointments.Remove(appointment);
         }
     }
 }
