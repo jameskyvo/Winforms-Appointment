@@ -67,7 +67,7 @@
             CustomerLabel.Location = new Point(27, 28);
             CustomerLabel.Name = "CustomerLabel";
             CustomerLabel.Size = new Size(62, 15);
-            CustomerLabel.TabIndex = 0;
+            CustomerLabel.TabIndex = 20;
             CustomerLabel.Text = "Customer:";
             // 
             // TypeLabel
@@ -114,7 +114,7 @@
             CustomerDropDown.Location = new Point(32, 51);
             CustomerDropDown.Name = "CustomerDropDown";
             CustomerDropDown.Size = new Size(200, 23);
-            CustomerDropDown.TabIndex = 5;
+            CustomerDropDown.TabIndex = 0;
             // 
             // customerBindingSource
             // 
@@ -125,7 +125,7 @@
             TypeTextBox.Location = new Point(32, 208);
             TypeTextBox.Name = "TypeTextBox";
             TypeTextBox.Size = new Size(200, 23);
-            TypeTextBox.TabIndex = 6;
+            TypeTextBox.TabIndex = 3;
             // 
             // StartTimePicker
             // 
@@ -135,7 +135,7 @@
             StartTimePicker.Name = "StartTimePicker";
             StartTimePicker.ShowUpDown = true;
             StartTimePicker.Size = new Size(200, 23);
-            StartTimePicker.TabIndex = 7;
+            StartTimePicker.TabIndex = 9;
             StartTimePicker.ValueChanged += StartTimePicker_ValueChanged;
             // 
             // EndTimePicker
@@ -146,7 +146,7 @@
             EndTimePicker.Name = "EndTimePicker";
             EndTimePicker.ShowUpDown = true;
             EndTimePicker.Size = new Size(200, 23);
-            EndTimePicker.TabIndex = 8;
+            EndTimePicker.TabIndex = 10;
             EndTimePicker.ValueChanged += EndTimePicker_ValueChanged;
             // 
             // UserDropDown
@@ -157,7 +157,7 @@
             UserDropDown.Location = new Point(258, 254);
             UserDropDown.Name = "UserDropDown";
             UserDropDown.Size = new Size(200, 23);
-            UserDropDown.TabIndex = 9;
+            UserDropDown.TabIndex = 11;
             // 
             // userBindingSource
             // 
@@ -168,7 +168,7 @@
             AddButton.Location = new Point(29, 504);
             AddButton.Name = "AddButton";
             AddButton.Size = new Size(75, 23);
-            AddButton.TabIndex = 10;
+            AddButton.TabIndex = 12;
             AddButton.Text = "Add";
             AddButton.UseVisualStyleBackColor = true;
             AddButton.Click += AddButton_Click;
@@ -198,7 +198,7 @@
             StartDatePicker.Location = new Point(259, 51);
             StartDatePicker.Name = "StartDatePicker";
             StartDatePicker.Size = new Size(200, 23);
-            StartDatePicker.TabIndex = 13;
+            StartDatePicker.TabIndex = 7;
             StartDatePicker.ValueChanged += StartDatePicker_ValueChanged;
             // 
             // EndDatePicker
@@ -208,7 +208,7 @@
             EndDatePicker.Location = new Point(259, 100);
             EndDatePicker.Name = "EndDatePicker";
             EndDatePicker.Size = new Size(200, 23);
-            EndDatePicker.TabIndex = 14;
+            EndDatePicker.TabIndex = 8;
             EndDatePicker.ValueChanged += EndDatePicker_ValueChanged;
             // 
             // TitleTextBox
@@ -216,7 +216,7 @@
             TitleTextBox.Location = new Point(32, 107);
             TitleTextBox.Name = "TitleTextBox";
             TitleTextBox.Size = new Size(200, 23);
-            TitleTextBox.TabIndex = 15;
+            TitleTextBox.TabIndex = 1;
             // 
             // TitleLabel
             // 
@@ -232,7 +232,7 @@
             DescriptionTextBox.Location = new Point(32, 164);
             DescriptionTextBox.Name = "DescriptionTextBox";
             DescriptionTextBox.Size = new Size(200, 23);
-            DescriptionTextBox.TabIndex = 17;
+            DescriptionTextBox.TabIndex = 2;
             // 
             // DescriptionLabel
             // 
@@ -257,7 +257,7 @@
             LocationBox.Location = new Point(32, 254);
             LocationBox.Name = "LocationBox";
             LocationBox.Size = new Size(200, 23);
-            LocationBox.TabIndex = 20;
+            LocationBox.TabIndex = 4;
             // 
             // ContactLabel
             // 
@@ -282,21 +282,21 @@
             ContactTextBox.Location = new Point(32, 311);
             ContactTextBox.Name = "ContactTextBox";
             ContactTextBox.Size = new Size(200, 23);
-            ContactTextBox.TabIndex = 23;
+            ContactTextBox.TabIndex = 5;
             // 
             // UrlTextBox
             // 
             UrlTextBox.Location = new Point(32, 355);
             UrlTextBox.Name = "UrlTextBox";
             UrlTextBox.Size = new Size(200, 23);
-            UrlTextBox.TabIndex = 24;
+            UrlTextBox.TabIndex = 6;
             // 
             // CancelOutButton
             // 
             CancelOutButton.Location = new Point(129, 504);
             CancelOutButton.Name = "CancelOutButton";
             CancelOutButton.Size = new Size(75, 23);
-            CancelOutButton.TabIndex = 25;
+            CancelOutButton.TabIndex = 13;
             CancelOutButton.Text = "Cancel";
             CancelOutButton.UseVisualStyleBackColor = true;
             CancelOutButton.Click += CancelOutButton_Click;

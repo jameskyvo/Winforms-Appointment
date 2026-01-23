@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("C969 Appointment Scheduler")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0b28087e4fb9f85ee27499ea5b7ffc85ef33dfac")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f415eaf678d4afb935d45766eed92a83dceb575a")]
 [assembly: System.Reflection.AssemblyProductAttribute("C969 Appointment Scheduler")]
 [assembly: System.Reflection.AssemblyTitleAttribute("C969 Appointment Scheduler")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
