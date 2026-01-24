@@ -114,5 +114,24 @@ namespace C969_Appointment_Scheduler
             UpdateAppointment updateAppointment = new(_customers, _users, _appointments, appointment, _repository);
             updateAppointment.Show();
         }
+
+        private void AppointmentsGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void ViewAllAppointmentsButton_Click(object sender, EventArgs e)
+        {
+            AppointmentsGridView.DataSource = _appointments;
+        }
+
+        private void ViewRangeButton_Click(object sender, EventArgs e)
+        {
+            DateTime start = StartRangePicker.Value;
+            DateTime end = EndRangePicker.Value;
+            var appointments = _appointments.Where(appointment => appointment.Start > start && appointment.End < end);
+
+            AppointmentsGridView.DataSource = appointments.ToList();
+        }
     }
 }

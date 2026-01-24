@@ -62,6 +62,7 @@
             ViewAllAppointmentsButton = new Button();
             customerBindingSource = new BindingSource(components);
             customerBindingSource1 = new BindingSource(components);
+            ViewRangeButton = new Button();
             ((System.ComponentModel.ISupportInitialize)AppointmentsGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)appointmentBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)customerBindingSource).BeginInit();
@@ -131,6 +132,7 @@
             AppointmentsGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             AppointmentsGridView.Size = new Size(517, 349);
             AppointmentsGridView.TabIndex = 5;
+            AppointmentsGridView.CellContentClick += AppointmentsGridView_CellContentClick;
             // 
             // appointmentIdDataGridViewTextBoxColumn
             // 
@@ -314,12 +316,13 @@
             // 
             // ViewAllAppointmentsButton
             // 
-            ViewAllAppointmentsButton.Location = new Point(666, 392);
+            ViewAllAppointmentsButton.Location = new Point(685, 448);
             ViewAllAppointmentsButton.Name = "ViewAllAppointmentsButton";
-            ViewAllAppointmentsButton.Size = new Size(156, 23);
+            ViewAllAppointmentsButton.Size = new Size(137, 23);
             ViewAllAppointmentsButton.TabIndex = 14;
             ViewAllAppointmentsButton.Text = "View All Appointments";
             ViewAllAppointmentsButton.UseVisualStyleBackColor = true;
+            ViewAllAppointmentsButton.Click += ViewAllAppointmentsButton_Click;
             // 
             // customerBindingSource
             // 
@@ -329,11 +332,22 @@
             // 
             customerBindingSource1.DataSource = typeof(Customer);
             // 
+            // ViewRangeButton
+            // 
+            ViewRangeButton.Location = new Point(686, 406);
+            ViewRangeButton.Name = "ViewRangeButton";
+            ViewRangeButton.Size = new Size(136, 23);
+            ViewRangeButton.TabIndex = 15;
+            ViewRangeButton.Text = "View In Range";
+            ViewRangeButton.UseVisualStyleBackColor = true;
+            ViewRangeButton.Click += ViewRangeButton_Click;
+            // 
             // CalendarView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(915, 507);
+            Controls.Add(ViewRangeButton);
             Controls.Add(ViewAllAppointmentsButton);
             Controls.Add(EndRangeLabel);
             Controls.Add(EndRangePicker);
@@ -394,5 +408,6 @@
         private DataGridViewTextBoxColumn lastUpdateDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn lastUpdateByDataGridViewTextBoxColumn;
         private BindingSource appointmentBindingSource;
+        private Button ViewRangeButton;
     }
 }
