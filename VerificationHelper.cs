@@ -98,5 +98,20 @@ namespace C969_Appointment_Scheduler
             }
             return value;
         }
+
+        internal static void EnforceBusinessHours(DateTimePicker dtPicker)
+        {
+            DateTime min = dtPicker.Value.Date.AddHours(9); // 9:00 AM
+            DateTime max = dtPicker.Value.Date.AddHours(17); // 5:00 PM
+
+            if (dtPicker.Value < min)
+            {
+                dtPicker.Value = min;
+            }
+            else if (dtPicker.Value > max)
+            {
+                dtPicker.Value = max;
+            }
+        }
     }
 }

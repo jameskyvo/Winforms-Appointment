@@ -501,5 +501,38 @@ WHERE appointmentId  = @appointmentId";
                 }
             }
         }
+
+        internal void UpdateAppointment(Appointment appointment)
+        {
+            using (MySqlConnection conn = new(_connStr))
+            {
+                conn.Open();
+
+                string query = @"UPDATE appointment
+SET customerId = @customerId, userId = @userId, title = @title, description = @description, location = @location, contact = @contact, type = @type, url = @url, start = @start, end = @end, createDate = @createDate, createdBy = @createdBy, lastUpdate = @lastUpdate, lastUpdateBy = @lastUpdateBy
+WHERE appointmentId = @appointmentId";
+
+                using (MySqlCommand cmd = new(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@appointmentId", appointment.AppointmentId);
+                    cmd.Parameters.AddWithValue("@customerId", appointment.CustomerId);
+                    cmd.Parameters.AddWithValue("@userId", appointment.UserId);
+                    cmd.Parameters.AddWithValue("@title", appointment.Title);
+                    cmd.Parameters.AddWithValue("@description", appointment.Description);
+                    cmd.Parameters.AddWithValue("@location", appointment.Location);
+                    cmd.Parameters.AddWithValue("@contact", appointment.Contact);
+                    cmd.Parameters.AddWithValue("@type", appointment.Type);
+                    cmd.Parameters.AddWithValue("@url", appointment.Url);
+                    cmd.Parameters.AddWithValue("@start", appointment.Start);
+                    cmd.Parameters.AddWithValue("@end", appointment.End);
+                    cmd.Parameters.AddWithValue("@createDate", appointment.CreateDate);
+                    cmd.Parameters.AddWithValue("@createdBy", appointment.CreatedBy);
+                    cmd.Parameters.AddWithValue("@lastUpdate", appointment.LastUpdate);
+                    cmd.Parameters.AddWithValue("@lastUpdateBy", appointment.LastUpdateBy);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

@@ -107,5 +107,12 @@ namespace C969_Appointment_Scheduler
             _repository.DeleteAppointment(appointment);
             _appointments.Remove(appointment);
         }
+
+        private void UpdateAppointmentButton_Click(object sender, EventArgs e)
+        {
+            Appointment appointment = VerificationHelper.RetrieveValidSelection<Appointment>(AppointmentsGridView);
+            UpdateAppointment updateAppointment = new(_customers, _users, _appointments, appointment, _repository);
+            updateAppointment.Show();
+        }
     }
 }

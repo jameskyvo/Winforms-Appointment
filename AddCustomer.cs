@@ -35,13 +35,7 @@ namespace C969_Appointment_Scheduler
                 // Try to create an address
                 try
                 {
-                    if (CityDropDown.SelectedItem is not City || CityDropDown.SelectedItem is null)
-                    {
-                        MessageBox.Show("Error: Dropdown does not have a valid city selected.");
-                        return;
-                    }
-                    
-                    City city = (City)CityDropDown.SelectedItem;
+                    City city = VerificationHelper.RetrieveValidSelection<City>(CityDropDown);
                     Address address = new()
                     {
                         StreetAddress = AddressTextBox.Text,

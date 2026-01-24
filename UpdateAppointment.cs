@@ -10,18 +10,16 @@ using System.Windows.Forms;
 
 namespace C969_Appointment_Scheduler
 {
-    public partial class AddAppointment : Form
+    public partial class UpdateAppointment : Form
     {
         public BindingList<Customer> _customers;
         private readonly BindingList<User> _users;
         private readonly BindingList<Appointment> _appointments;
         public MySqlDataRepository _repository;
+        public Appointment _appointment;
         public bool _isAdjustingDate = false;
         public bool _isAdjustingTime = false;
-        public const int minTime = 9;
-        public const int maxTime = 17;
-
-        public AddAppointment(BindingList<Customer> customers, BindingList<User> users, BindingList<Appointment> appointments, MySqlDataRepository repository)
+        public UpdateAppointment(BindingList<Customer> customers, BindingList<User> users, BindingList<Appointment> appointments, Appointment currentAppointment, MySqlDataRepository repository)
         {
             InitializeComponent();
             _customers = customers;
@@ -31,52 +29,10 @@ namespace C969_Appointment_Scheduler
             UserDropDown.DataSource = _users;
 
             _appointments = appointments;
+            _appointment = currentAppointment;
             _repository = repository;
             VerificationHelper.EnforceBusinessHours(StartTimePicker);
             VerificationHelper.EnforceBusinessHours(EndTimePicker);
-        }
-
-        private void AddButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                bool validInput = CheckValidInput();
-                Customer customer = VerificationHelper.RetrieveValidSelection<Customer>(CustomerDropDown);
-                User user = VerificationHelper.RetrieveValidSelection<User>(UserDropDown);
-                {
-                    if (validInput)
-                    {
-                        // Create a new appointment object and assign respective values
-                        Appointment appointment = new()
-                        {
-                            CustomerId = customer.Id,
-                            UserId = user.Id,
-                            Title = TitleTextBox.Text,
-                            Description = DescriptionTextBox.Text,
-                            Location = LocationTextBox.Text,
-                            Contact = ContactTextBox.Text,
-                            Type = TypeTextBox.Text,
-                            Url = UrlTextBox.Text,
-                            Start = CreateDateTime(StartDatePicker.Value, StartTimePicker.Value),
-                            End = CreateDateTime(EndDatePicker.Value, EndTimePicker.Value),
-                            CreateDate = DateTime.UtcNow,
-                            CreatedBy = "test",
-                            LastUpdate = DateTime.UtcNow,
-                            LastUpdateBy = "test",
-
-                        };
-                        // Submit to db
-                        _repository.AddAppointment(appointment);
-                        // Add to bindinglist.
-                        _appointments.Add(appointment);
-                        this.Close();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error: {ex.Message}");
-            }
         }
 
         private DateTime CreateDateTime(DateTime date, DateTime time) => date.Date + time.TimeOfDay;
@@ -162,6 +118,68 @@ namespace C969_Appointment_Scheduler
         private void CancelOutButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void UpdateAppointment_Load(object sender, EventArgs e)
+        {
+            // Fields to preload:
+            CustomerDropDown.SelectedValue = _appointment.CustomerId;
+            TitleTextBox.Text = _appointment.Title;
+            DescriptionTextBox.Text = _appointment.Description;
+            TypeTextBox.Text = _appointment.Type;
+            LocationTextBox.Text = _appointment.Location;
+            ContactTextBox.Text = _appointment.Contact;
+            UrlTextBox.Text = _appointment.Url;
+            StartDatePicker.Value = _appointment.Start;
+            EndDatePicker.Value = _appointment.End;
+            StartDatePicker.Value = _appointment.Start;
+            EndDatePicker.Value = _appointment.End;
+            UserDropDown.SelectedValue = _appointment.UserId;
+        }
+
+        private void UpdateButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bool isValid = CheckValidInput();
+                if (isValid)
+                {
+                    DateTime start = CreateDateTime(StartDatePicker.Value, StartTimePicker.Value);
+                    DateTime end = CreateDateTime(EndDatePicker.Value, EndTimePicker.Value);
+                    Customer customer = VerificationHelper.RetrieveValidSelection<Customer>(CustomerDropDown);
+                    User user = VerificationHelper.RetrieveValidSelection<User>(UserDropDown);
+                    Appointment appointment = new()
+                    {
+                        AppointmentId = _appointment.AppointmentId,
+                        CustomerId = customer.Id,
+                        UserId = user.Id,
+                        Title = TitleTextBox.Text,
+                        Description = DescriptionTextBox.Text,
+                        Location = LocationTextBox.Text,
+                        Contact = ContactTextBox.Text,
+                        Url = UrlTextBox.Text,
+                        Type = TypeTextBox.Text,
+                        Start = start,
+                        End = end,
+                        CreateDate = _appointment.CreateDate,
+                        CreatedBy = _appointment.CreatedBy,
+                        LastUpdate = DateTime.UtcNow,
+                        LastUpdateBy = "test",
+                    };
+                    _repository.UpdateAppointment(appointment);
+                    _appointments.Remove(_appointment);
+                    _appointments.Add(appointment);
+                    this.Close();
+                } else
+                {
+                    return;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace C969_Appointment_Scheduler
 {
-    partial class AddAppointment
+    partial class UpdateAppointment
     {
         /// <summary>
         /// Required designer variable.
@@ -41,7 +41,7 @@
             EndTimePicker = new DateTimePicker();
             UserDropDown = new ComboBox();
             userBindingSource = new BindingSource(components);
-            AddButton = new Button();
+            UpdateButton = new Button();
             StartDateLabel = new Label();
             EndDateLabel = new Label();
             StartDatePicker = new DateTimePicker();
@@ -115,6 +115,7 @@
             CustomerDropDown.Name = "CustomerDropDown";
             CustomerDropDown.Size = new Size(200, 23);
             CustomerDropDown.TabIndex = 0;
+            CustomerDropDown.ValueMember = "Id";
             // 
             // customerBindingSource
             // 
@@ -158,20 +159,21 @@
             UserDropDown.Name = "UserDropDown";
             UserDropDown.Size = new Size(200, 23);
             UserDropDown.TabIndex = 11;
+            UserDropDown.ValueMember = "Id";
             // 
             // userBindingSource
             // 
             userBindingSource.DataSource = typeof(User);
             // 
-            // AddButton
+            // UpdateButton
             // 
-            AddButton.Location = new Point(29, 504);
-            AddButton.Name = "AddButton";
-            AddButton.Size = new Size(75, 23);
-            AddButton.TabIndex = 12;
-            AddButton.Text = "Add";
-            AddButton.UseVisualStyleBackColor = true;
-            AddButton.Click += AddButton_Click;
+            UpdateButton.Location = new Point(29, 504);
+            UpdateButton.Name = "UpdateButton";
+            UpdateButton.Size = new Size(75, 23);
+            UpdateButton.TabIndex = 12;
+            UpdateButton.Text = "Update";
+            UpdateButton.UseVisualStyleBackColor = true;
+            UpdateButton.Click += UpdateButton_Click;
             // 
             // StartDateLabel
             // 
@@ -301,7 +303,7 @@
             CancelOutButton.UseVisualStyleBackColor = true;
             CancelOutButton.Click += CancelOutButton_Click;
             // 
-            // AddAppointment
+            // UpdateAppointment
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -321,7 +323,7 @@
             Controls.Add(StartDatePicker);
             Controls.Add(EndDateLabel);
             Controls.Add(StartDateLabel);
-            Controls.Add(AddButton);
+            Controls.Add(UpdateButton);
             Controls.Add(UserDropDown);
             Controls.Add(EndTimePicker);
             Controls.Add(StartTimePicker);
@@ -332,8 +334,9 @@
             Controls.Add(StartTimeLabel);
             Controls.Add(TypeLabel);
             Controls.Add(CustomerLabel);
-            Name = "AddAppointment";
-            Text = "Add Appointment";
+            Name = "UpdateAppointment";
+            Text = "Update Appointment";
+            Load += UpdateAppointment_Load;
             ((System.ComponentModel.ISupportInitialize)customerBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)userBindingSource).EndInit();
             ResumeLayout(false);
@@ -353,7 +356,7 @@
         private DateTimePicker StartTimePicker;
         private DateTimePicker EndTimePicker;
         private ComboBox UserDropDown;
-        private Button AddButton;
+        private Button UpdateButton;
         private BindingSource userBindingSource;
         private Label StartDateLabel;
         private Label EndDateLabel;
