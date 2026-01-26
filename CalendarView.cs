@@ -33,6 +33,8 @@ namespace C969_Appointment_Scheduler
             AppointmentsGridView.DataSource = _appointments;
 
             _users = _repository.GetAllUsers();
+
+            TimeZoneLabel.Text = $"Time Zone: {DateTimeHelper.tzInfo}";
         }
 
         private void AddButton_Click(object sender, EventArgs e)
@@ -113,11 +115,6 @@ namespace C969_Appointment_Scheduler
             Appointment appointment = VerificationHelper.RetrieveValidSelection<Appointment>(AppointmentsGridView);
             UpdateAppointment updateAppointment = new(_customers, _users, _appointments, appointment, _repository);
             updateAppointment.Show();
-        }
-
-        private void AppointmentsGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void ViewAllAppointmentsButton_Click(object sender, EventArgs e)

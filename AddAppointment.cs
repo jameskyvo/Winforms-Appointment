@@ -79,7 +79,7 @@ namespace C969_Appointment_Scheduler
             }
         }
 
-        private DateTime CreateDateTime(DateTime date, DateTime time) => date.Date + time.TimeOfDay;
+        private static DateTime CreateDateTime(DateTime date, DateTime time) => date.Date + time.TimeOfDay;
 
         private bool CheckValidInput()
         {

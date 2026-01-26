@@ -63,6 +63,7 @@
             customerBindingSource = new BindingSource(components);
             customerBindingSource1 = new BindingSource(components);
             ViewRangeButton = new Button();
+            TimeZoneLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)AppointmentsGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)appointmentBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)customerBindingSource).BeginInit();
@@ -132,7 +133,6 @@
             AppointmentsGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             AppointmentsGridView.Size = new Size(517, 349);
             AppointmentsGridView.TabIndex = 5;
-            AppointmentsGridView.CellContentClick += AppointmentsGridView_CellContentClick;
             // 
             // appointmentIdDataGridViewTextBoxColumn
             // 
@@ -316,7 +316,7 @@
             // 
             // ViewAllAppointmentsButton
             // 
-            ViewAllAppointmentsButton.Location = new Point(685, 448);
+            ViewAllAppointmentsButton.Location = new Point(533, 448);
             ViewAllAppointmentsButton.Name = "ViewAllAppointmentsButton";
             ViewAllAppointmentsButton.Size = new Size(137, 23);
             ViewAllAppointmentsButton.TabIndex = 14;
@@ -334,7 +334,7 @@
             // 
             // ViewRangeButton
             // 
-            ViewRangeButton.Location = new Point(686, 406);
+            ViewRangeButton.Location = new Point(534, 406);
             ViewRangeButton.Name = "ViewRangeButton";
             ViewRangeButton.Size = new Size(136, 23);
             ViewRangeButton.TabIndex = 15;
@@ -342,11 +342,21 @@
             ViewRangeButton.UseVisualStyleBackColor = true;
             ViewRangeButton.Click += ViewRangeButton_Click;
             // 
+            // TimeZoneLabel
+            // 
+            TimeZoneLabel.AutoSize = true;
+            TimeZoneLabel.Location = new Point(305, 474);
+            TimeZoneLabel.Name = "TimeZoneLabel";
+            TimeZoneLabel.Size = new Size(90, 15);
+            TimeZoneLabel.TabIndex = 16;
+            TimeZoneLabel.Text = "Time Zone: XXX";
+            // 
             // CalendarView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(915, 507);
+            Controls.Add(TimeZoneLabel);
             Controls.Add(ViewRangeButton);
             Controls.Add(ViewAllAppointmentsButton);
             Controls.Add(EndRangeLabel);
@@ -409,5 +419,6 @@
         private DataGridViewTextBoxColumn lastUpdateByDataGridViewTextBoxColumn;
         private BindingSource appointmentBindingSource;
         private Button ViewRangeButton;
+        private Label TimeZoneLabel;
     }
 }

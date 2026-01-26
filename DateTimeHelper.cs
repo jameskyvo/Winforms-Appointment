@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace C969_Appointment_Scheduler
 {
-    internal class DateTimeHelper
+    static internal class DateTimeHelper
     {
+        public static TimeZoneInfo tzInfo = TimeZoneInfo.Local;
+
         internal static void EnforceBusinessDays(DateTimePicker dtpicker)
         {
             if (dtpicker.Value.DayOfWeek == DayOfWeek.Saturday)
@@ -54,17 +56,29 @@ namespace C969_Appointment_Scheduler
 
         internal static void EnforceBusinessHours(DateTimePicker dtPicker)
         {
-            DateTime min = dtPicker.Value.Date.AddHours(9); // 9:00 AM
-            DateTime max = dtPicker.Value.Date.AddHours(17); // 5:00 PM
+            // Get the time as the users current local time
+            TimeZoneInfo easternZone =
+        TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            DateTime localTime = dtPicker.Value;
+            // Convert it to eastern time
+            DateTime easternTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(localTime, "Eastern Standard Time");
+            // Do logic stuff in EST
+            DateTime min = easternTime.Date.AddHours(9); // 9:00 AM
+            DateTime max = easternTime.Date.AddHours(17); // 5:00 PM
+            
 
-            if (dtPicker.Value < min)
+            if (easternTime < min)
             {
-                dtPicker.Value = min;
+                easternTime = min;
             }
-            else if (dtPicker.Value > max)
+            else if (easternTime > max)
             {
-                dtPicker.Value = max;
+                easternTime = max;
             }
+
+            localTime = TimeZoneInfo.ConvertTime(easternTime, easternZone, tzInfo);
+
+            dtPicker.Value = localTime;
         }
     }
 }

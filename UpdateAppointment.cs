@@ -31,8 +31,8 @@ namespace C969_Appointment_Scheduler
             _appointments = appointments;
             _appointment = currentAppointment;
             _repository = repository;
-            VerificationHelper.EnforceBusinessHours(StartTimePicker);
-            VerificationHelper.EnforceBusinessHours(EndTimePicker);
+            DateTimeHelper.EnforceBusinessHours(StartTimePicker);
+            DateTimeHelper.EnforceBusinessHours(EndTimePicker);
         }
 
         private DateTime CreateDateTime(DateTime date, DateTime time) => date.Date + time.TimeOfDay;
@@ -70,9 +70,9 @@ namespace C969_Appointment_Scheduler
             }
 
             _isAdjustingDate = true;
-            VerificationHelper.EnforceBusinessDays(StartDatePicker);
-            VerificationHelper.EnforceEndDateAfterStartDate(StartDatePicker, EndDatePicker);
-            VerificationHelper.PreventPastScheduling(StartDatePicker);
+            DateTimeHelper.EnforceBusinessDays(StartDatePicker);
+            DateTimeHelper.EnforceEndDateAfterStartDate(StartDatePicker, EndDatePicker);
+            DateTimeHelper.PreventPastScheduling(StartDatePicker);
             _isAdjustingDate = false;
         }
 
@@ -84,8 +84,8 @@ namespace C969_Appointment_Scheduler
             }
 
             _isAdjustingDate = true;
-            VerificationHelper.EnforceBusinessDays(EndDatePicker);
-            VerificationHelper.EnforceEndDateAfterStartDate(StartDatePicker, EndDatePicker);
+            DateTimeHelper.EnforceBusinessDays(EndDatePicker);
+            DateTimeHelper.EnforceEndDateAfterStartDate(StartDatePicker, EndDatePicker);
             _isAdjustingDate = false;
         }
 
@@ -97,8 +97,8 @@ namespace C969_Appointment_Scheduler
             }
 
             _isAdjustingTime = true;
-            VerificationHelper.EnforceBusinessHours(StartTimePicker);
-            VerificationHelper.EnforceEndTimeAfterStartTime(StartTimePicker, EndTimePicker);
+            DateTimeHelper.EnforceBusinessHours(StartTimePicker);
+            DateTimeHelper.EnforceEndTimeAfterStartTime(StartTimePicker, EndTimePicker);
             _isAdjustingTime = false;
         }
 
@@ -110,8 +110,8 @@ namespace C969_Appointment_Scheduler
             }
 
             _isAdjustingTime = true;
-            VerificationHelper.EnforceBusinessHours(EndTimePicker);
-            VerificationHelper.EnforceStartTimeBeforeEndTime(StartTimePicker, EndTimePicker);
+            DateTimeHelper.EnforceBusinessHours(EndTimePicker);
+            DateTimeHelper.EnforceStartTimeBeforeEndTime(StartTimePicker, EndTimePicker);
             _isAdjustingTime = false;
         }
 
