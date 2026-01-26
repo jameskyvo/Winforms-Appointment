@@ -9,7 +9,6 @@ namespace C969_Appointment_Scheduler
     static internal class DateTimeHelper
     {
         public static TimeZoneInfo tzInfo = TimeZoneInfo.Local;
-
         internal static void EnforceBusinessDays(DateTimePicker dtpicker)
         {
             if (dtpicker.Value.DayOfWeek == DayOfWeek.Saturday)

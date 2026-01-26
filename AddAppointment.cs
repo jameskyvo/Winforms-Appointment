@@ -57,8 +57,8 @@ namespace C969_Appointment_Scheduler
                             Contact = ContactTextBox.Text,
                             Type = TypeTextBox.Text,
                             Url = UrlTextBox.Text,
-                            Start = CreateDateTime(StartDatePicker.Value.ToUniversalTime(), StartTimePicker.Value.ToUniversalTime()),
-                            End = CreateDateTime(EndDatePicker.Value.ToUniversalTime(), EndTimePicker.Value.ToUniversalTime()),
+                            Start = CreateDateTime(StartDatePicker.Value, StartTimePicker.Value).ToUniversalTime(),
+                            End = CreateDateTime(EndDatePicker.Value, EndTimePicker.Value).ToUniversalTime(),
                             CreateDate = DateTime.UtcNow,
                             CreatedBy = "test",
                             LastUpdate = DateTime.UtcNow,
@@ -68,6 +68,10 @@ namespace C969_Appointment_Scheduler
                         // Submit to db
                         _repository.AddAppointment(appointment);
                         // Add to bindinglist.
+
+                        // Convert back to local
+                        appointment.Start = appointment.Start.ToLocalTime();
+                        appointment.End = appointment.End.ToLocalTime();
                         _appointments.Add(appointment);
                         this.Close();
                     }
