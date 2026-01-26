@@ -132,8 +132,8 @@ namespace C969_Appointment_Scheduler
             UrlTextBox.Text = _appointment.Url;
             StartDatePicker.Value = _appointment.Start;
             EndDatePicker.Value = _appointment.End;
-            StartDatePicker.Value = _appointment.Start;
-            EndDatePicker.Value = _appointment.End;
+            StartTimePicker.Value = _appointment.Start;
+            EndTimePicker.Value = _appointment.End;
             UserDropDown.SelectedValue = _appointment.UserId;
         }
 
@@ -144,8 +144,8 @@ namespace C969_Appointment_Scheduler
                 bool isValid = CheckValidInput();
                 if (isValid)
                 {
-                    DateTime start = CreateDateTime(StartDatePicker.Value, StartTimePicker.Value);
-                    DateTime end = CreateDateTime(EndDatePicker.Value, EndTimePicker.Value);
+                    DateTime start = CreateDateTime(StartDatePicker.Value, StartTimePicker.Value).ToUniversalTime();
+                    DateTime end = CreateDateTime(EndDatePicker.Value, EndTimePicker.Value).ToUniversalTime();
                     Customer customer = VerificationHelper.RetrieveValidSelection<Customer>(CustomerDropDown);
                     User user = VerificationHelper.RetrieveValidSelection<User>(UserDropDown);
                     Appointment appointment = new()
