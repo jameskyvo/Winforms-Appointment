@@ -395,11 +395,11 @@ WHERE addressId = @addressId";
                             Contact = reader.GetString("contact"),
                             Type = reader.GetString("type"),
                             Url = reader.IsDBNull("url") ? null : reader.GetString("url"),
-                            Start = reader.GetDateTime("start"),
-                            End = reader.GetDateTime("end"),
-                            CreateDate = reader.GetDateTime("createDate"),
+                            Start = DateTime.SpecifyKind(reader.GetDateTime("start"), DateTimeKind.Utc),
+                            End = DateTime.SpecifyKind(reader.GetDateTime("end"), DateTimeKind.Utc),
+                            CreateDate = DateTime.SpecifyKind(reader.GetDateTime("createDate"), DateTimeKind.Utc),
                             CreatedBy = reader.GetString("createdBy"),
-                            LastUpdate = reader.GetDateTime("lastUpdate"),
+                            LastUpdate = DateTime.SpecifyKind(reader.GetDateTime("lastUpdate"), DateTimeKind.Utc),
                             LastUpdateBy = reader.GetString("lastUpdateBy"),
                         };
 
