@@ -375,6 +375,7 @@
             Controls.Add(CustomersList);
             Name = "CalendarView";
             Text = "CalendarView";
+            Load += CalendarView_Load;
             ((System.ComponentModel.ISupportInitialize)AppointmentsGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)appointmentBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)customerBindingSource).EndInit();

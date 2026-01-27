@@ -1,14 +1,15 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI.Common;
 
 namespace C969_Appointment_Scheduler
 {
@@ -16,13 +17,15 @@ namespace C969_Appointment_Scheduler
     {
         private readonly string _connStr;
         MySqlDataRepository _repository;
+        private string _userName;
         public BindingList<Customer> _customers;
         public BindingList<Appointment> _appointments = [];
         public BindingList<User> _users = [];
-        public CalendarView(string connStr)
+        public CalendarView(string connStr, string userName)
         {
             _connStr = connStr;
             _repository = new(_connStr);
+            _userName = userName;
 
             InitializeComponent();
             _customers = _repository.GetAllCustomers();
@@ -129,6 +132,32 @@ namespace C969_Appointment_Scheduler
             var appointments = _appointments.Where(appointment => appointment.Start > start && appointment.End < end);
 
             AppointmentsGridView.DataSource = appointments.ToList();
+        }
+
+        private void CalendarView_Load(object sender, EventArgs e)
+        {
+            try
+            {
+
+                // Find user's id based off of the username used to sign
+                int userId = _repository.GetIdFromUsername(_userName);
+                int mins = 15;
+                // Get all appointments
+                BindingList<Appointment> appointments = _repository.GetAllAppointments();
+                // Sort the list to where the appointments are the users and where the appointments are in less than 15 minutes
+                var now = DateTime.UtcNow;
+                var in15 = now.AddMinutes(15);
+                bool hasUpcoming = appointments.Any(a => a.UserId == userId && a.Start.ToUniversalTime() >= now && a.Start.ToUniversalTime() <= in15);
+
+                if (hasUpcoming)
+                {
+                    MessageBox.Show($"You have an appointment coming up within {mins} minutes.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

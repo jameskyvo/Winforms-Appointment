@@ -32,13 +32,13 @@ namespace C969_Appointment_Scheduler
             UserLocationLabel.Text = rm.GetString("UserLocation") + currentRegion;
 
         }
-        
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
             if (UsernameBox.Text.Equals("test") && PasswordBox.Text == "test")
             {
-                CalendarView cv = new("Server=localhost;Port=3306;Database=customer_schedule;Uid=sqlUser;Password=Passw0rd!");
+                string userName = UsernameBox.Text;
+                CalendarView cv = new("Server=localhost;Port=3306;Database=customer_schedule;Uid=sqlUser;Password=Passw0rd!", userName);
                 cv.Show();
                 this.Hide();
             }
