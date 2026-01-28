@@ -159,5 +159,11 @@ namespace C969_Appointment_Scheduler
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void ReportingButton_Click(object sender, EventArgs e)
+        {
+            Reporting reporting = new(_repository, _users);
+            reporting.Show();
+        }
     }
 }

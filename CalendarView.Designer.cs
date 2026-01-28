@@ -64,6 +64,7 @@
             customerBindingSource1 = new BindingSource(components);
             ViewRangeButton = new Button();
             TimeZoneLabel = new Label();
+            ReportingButton = new Button();
             ((System.ComponentModel.ISupportInitialize)AppointmentsGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)appointmentBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)customerBindingSource).BeginInit();
@@ -245,7 +246,7 @@
             // 
             // StartRangePicker
             // 
-            StartRangePicker.Location = new Point(305, 406);
+            StartRangePicker.Location = new Point(456, 406);
             StartRangePicker.Name = "StartRangePicker";
             StartRangePicker.Size = new Size(200, 23);
             StartRangePicker.TabIndex = 6;
@@ -262,7 +263,7 @@
             // StartRangeLabel
             // 
             StartRangeLabel.AutoSize = true;
-            StartRangeLabel.Location = new Point(305, 389);
+            StartRangeLabel.Location = new Point(456, 389);
             StartRangeLabel.Name = "StartRangeLabel";
             StartRangeLabel.Size = new Size(67, 15);
             StartRangeLabel.TabIndex = 8;
@@ -300,7 +301,7 @@
             // 
             // EndRangePicker
             // 
-            EndRangePicker.Location = new Point(304, 448);
+            EndRangePicker.Location = new Point(455, 448);
             EndRangePicker.Name = "EndRangePicker";
             EndRangePicker.Size = new Size(200, 23);
             EndRangePicker.TabIndex = 12;
@@ -308,7 +309,7 @@
             // EndRangeLabel
             // 
             EndRangeLabel.AutoSize = true;
-            EndRangeLabel.Location = new Point(305, 431);
+            EndRangeLabel.Location = new Point(456, 431);
             EndRangeLabel.Name = "EndRangeLabel";
             EndRangeLabel.Size = new Size(63, 15);
             EndRangeLabel.TabIndex = 13;
@@ -316,7 +317,7 @@
             // 
             // ViewAllAppointmentsButton
             // 
-            ViewAllAppointmentsButton.Location = new Point(533, 448);
+            ViewAllAppointmentsButton.Location = new Point(684, 448);
             ViewAllAppointmentsButton.Name = "ViewAllAppointmentsButton";
             ViewAllAppointmentsButton.Size = new Size(137, 23);
             ViewAllAppointmentsButton.TabIndex = 14;
@@ -334,7 +335,7 @@
             // 
             // ViewRangeButton
             // 
-            ViewRangeButton.Location = new Point(534, 406);
+            ViewRangeButton.Location = new Point(685, 406);
             ViewRangeButton.Name = "ViewRangeButton";
             ViewRangeButton.Size = new Size(136, 23);
             ViewRangeButton.TabIndex = 15;
@@ -345,17 +346,28 @@
             // TimeZoneLabel
             // 
             TimeZoneLabel.AutoSize = true;
-            TimeZoneLabel.Location = new Point(305, 474);
+            TimeZoneLabel.Location = new Point(456, 474);
             TimeZoneLabel.Name = "TimeZoneLabel";
             TimeZoneLabel.Size = new Size(90, 15);
             TimeZoneLabel.TabIndex = 16;
             TimeZoneLabel.Text = "Time Zone: XXX";
+            // 
+            // ReportingButton
+            // 
+            ReportingButton.Location = new Point(305, 406);
+            ReportingButton.Name = "ReportingButton";
+            ReportingButton.Size = new Size(100, 23);
+            ReportingButton.TabIndex = 17;
+            ReportingButton.Text = "Reports";
+            ReportingButton.UseVisualStyleBackColor = true;
+            ReportingButton.Click += ReportingButton_Click;
             // 
             // CalendarView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(915, 507);
+            Controls.Add(ReportingButton);
             Controls.Add(TimeZoneLabel);
             Controls.Add(ViewRangeButton);
             Controls.Add(ViewAllAppointmentsButton);
@@ -421,5 +433,6 @@
         private BindingSource appointmentBindingSource;
         private Button ViewRangeButton;
         private Label TimeZoneLabel;
+        private Button ReportingButton;
     }
 }
