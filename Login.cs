@@ -38,7 +38,7 @@ namespace C969_Appointment_Scheduler
             if (UsernameBox.Text.Equals("test") && PasswordBox.Text == "test")
             {
                 string userName = UsernameBox.Text;
-                CalendarView cv = new("Server=localhost;Port=3306;Database=customer_schedule;Uid=sqlUser;Password=Passw0rd!", userName);
+                CalendarView cv = new("Server=127.0.0.1;Port=3306;Database=client_schedule;Uid=sqlUser;Password=Passw0rd!", userName);
                 cv.Show();
                 // Open Login_History.txt, create if not existing with RW permissions
                 using (StreamWriter w = File.AppendText("Login_History.txt"))
