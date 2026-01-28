@@ -40,6 +40,9 @@ namespace C969_Appointment_Scheduler
                 string userName = UsernameBox.Text;
                 CalendarView cv = new("Server=localhost;Port=3306;Database=customer_schedule;Uid=sqlUser;Password=Passw0rd!", userName);
                 cv.Show();
+                // Open Login_History.txt, create if not existing with RW permissions
+                using (StreamWriter w = File.AppendText("Login_History.txt"))
+                    w.WriteLine($"{DateTime.UtcNow} - {userName}");
                 this.Hide();
             }
             else
