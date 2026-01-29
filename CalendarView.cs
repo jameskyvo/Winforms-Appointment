@@ -74,6 +74,12 @@ namespace C969_Appointment_Scheduler
             {
                 _repository.DeleteCustomer(customer);
                 // if it succeeds, delete the item from the databoundlist.
+                _appointments.Clear();
+
+                foreach (var appt in _repository.GetAllAppointments())
+                {
+                    _appointments.Add(appt);
+                }
                 _customers.Remove(customer);
             }
             catch (Exception ex)
