@@ -153,7 +153,7 @@ VALUES
         return customers;
     }
 
-    internal void AddCustomer(Customer customer, Address address)
+    internal long AddCustomer(Customer customer, Address address)
     {
         try
         {
@@ -177,12 +177,14 @@ VALUES
                     cmd.Parameters.AddWithValue("@lastUpdateBy", customer.LastUpdatedBy);
 
                     cmd.ExecuteNonQuery();
+                    return cmd.LastInsertedId;
                 }
             }
         }
         catch (Exception ex)
         {
             MessageBox.Show($"Error: {ex.Message}");
+            return -1;
         }
     }
 

@@ -62,7 +62,7 @@ namespace C969_Appointment_Scheduler
                         LastUpdatedBy = "test",
                     };
                     // Add customer to db
-                    _repository.AddCustomer(customer, address);
+                    customer.Id = Convert.ToInt32(_repository.AddCustomer(customer, address));
                     _customers.Add(customer);
                     this.Close();
                 }
