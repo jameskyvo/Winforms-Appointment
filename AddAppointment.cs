@@ -56,7 +56,7 @@ namespace C969_Appointment_Scheduler
                             Location = LocationTextBox.Text.Trim(),
                             Contact = ContactTextBox.Text.Trim(),
                             Type = TypeTextBox.Text,
-                            Url = UrlTextBox.Text,
+                            Url = UrlTextBox.Text.Trim(),
                             Start = CreateDateTime(StartDatePicker.Value, StartTimePicker.Value).ToUniversalTime(),
                             End = CreateDateTime(EndDatePicker.Value, EndTimePicker.Value).ToUniversalTime(),
                             CreateDate = DateTime.UtcNow,
