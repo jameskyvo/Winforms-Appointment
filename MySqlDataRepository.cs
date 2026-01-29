@@ -324,7 +324,6 @@ WHERE customerid = @customerId";
                     cmd.Parameters.AddWithValue("@lastUpdateBy", customer.LastUpdatedBy);
 
                     int rowsAffected = cmd.ExecuteNonQuery();
-                    MessageBox.Show($"Rows affected: {rowsAffected}");
                 }
             }
         }
