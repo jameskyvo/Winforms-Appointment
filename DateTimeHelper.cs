@@ -41,9 +41,9 @@ namespace C969_Appointment_Scheduler
 
         internal static void PreventPastScheduling(DateTimePicker datePicker)
         {
-            if (datePicker.Value < DateTime.Now)
+            if (datePicker.Value.Date < DateTime.Now)
             {
-                datePicker.Value = DateTime.Now;
+                datePicker.Value = DateTime.Today;
             }
         }
 
