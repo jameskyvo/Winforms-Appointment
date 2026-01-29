@@ -133,9 +133,9 @@ namespace C969_Appointment_Scheduler
 
         private void ViewRangeButton_Click(object sender, EventArgs e)
         {
-            DateTime start = StartRangePicker.Value;
-            DateTime end = EndRangePicker.Value;
-            var appointments = _appointments.Where(appointment => appointment.Start > start && appointment.End < end);
+            DateTime start = StartRangePicker.Value.Date; // 00:00:00
+            DateTime end = EndRangePicker.Value.Date.AddDays(1).AddTicks(-1); // 23:59:59.9999999
+            var appointments = _appointments.Where(appointment => appointment.Start >= start && appointment.End <= end);
 
             AppointmentsGridView.DataSource = appointments.ToList();
         }
