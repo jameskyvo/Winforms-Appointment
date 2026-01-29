@@ -76,36 +76,21 @@ namespace C969_Appointment_Scheduler
 
         private bool CheckValidInput()
         {
-            string name = NameTextBox.Text.Trim();
-            string address = AddressTextBox.Text.Trim();
-            string phoneNumber = PhoneNumberBox.Text.Trim();
-            // Check to make sure the name box is not empty or whitespace
-            if (string.IsNullOrWhiteSpace(name))
+            try
             {
-                MessageBox.Show("Please enter a customer's name.");
+                // Check to make sure the name box is not empty or whitespace
+                VerificationHelper.VerifyTextBox(NameTextBox, NameLabel);
+                // Check to make sure the address is not empty or whitespace
+                VerificationHelper.VerifyTextBox(AddressTextBox, AddressLabel);
+                // Check to make sure the phone number does not contain underscores
+                VerificationHelper.VerifyMaskedBox(PhoneNumberBox, PhoneNumberLabel);
+                VerificationHelper.VerifyMaskedBox(PostalCodeTextBox, PostalCodeLabel);
+                return true;
+            } catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
                 return false;
             }
-            // Check to make sure the address is not empty or whitespace
-            if (string.IsNullOrWhiteSpace(address))
-            {
-                MessageBox.Show("Please enter an address.");
-                return false;
-            }
-            // Check to make sure the phone number does not contain underscores
-            if (!PhoneNumberBox.MaskCompleted || phoneNumber.Contains('_') || phoneNumber.Contains(' '))
-            {
-                MessageBox.Show("Please enter a valid phone number.");
-                return false;
-            }
-
-            string postalCode = PostalCodeTextBox.Text;
-            if (!PostalCodeTextBox.MaskCompleted || postalCode.Contains('_') || postalCode.Contains(' '))
-            {
-                MessageBox.Show("Please enter a valid postal code.");
-                return false;
-            }
-
-            return true;
         }
         private void CountryDropDown_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -36,17 +36,12 @@ namespace C969_Appointment_Scheduler
             {
                 try
                 {
-                    if (CityDropDown.SelectedItem is not City || CityDropDown.SelectedItem is null)
-                    {
-                        MessageBox.Show("Error: Dropdown does not have a valid city selected.");
-                        return;
-                    }
                     _customers.Remove(_customer);
-                    City city = (City)CityDropDown.SelectedItem;
+                    City city = VerificationHelper.RetrieveValidSelection<City>(CityDropDown);
                     Address address = _repository.GetAddressFromCustomer(_customer);
                     // Update address to contain new information
                     address.StreetAddress = AddressTextBox.Text;
-                    address.SecondaryStreetAddress = Address2TextBox.Text;
+                    address.SecondaryStreetAddress = Address2TextBox.Text.Trim();
                     address.CityId = city.Id;
                     address.PostalCode = PostalCodeTextBox.Text;
                     address.PhoneNumber = PhoneNumberBox.Text;
@@ -78,37 +73,22 @@ namespace C969_Appointment_Scheduler
 
         private bool CheckValidInput()
         {
-            string name = NameTextBox.Text.Trim();
-            string address = AddressTextBox.Text.Trim();
-            string phoneNumber = PhoneNumberBox.Text.Trim();
-            // Check to make sure the name box is not empty or whitespace
-            if (string.IsNullOrWhiteSpace(name))
+            try
             {
-                MessageBox.Show("Please enter a customer's name.");
+                // Check to make sure the name box is not empty or whitespace
+                VerificationHelper.VerifyTextBox(NameTextBox, NameLabel);
+                // Check to make sure the address is not empty or whitespace
+                VerificationHelper.VerifyTextBox(AddressTextBox, AddressLabel);
+                // Check to make sure the phone number does not contain underscores
+                VerificationHelper.VerifyMaskedBox(PhoneNumberBox, PhoneNumberLabel);
+                // Make sure postal code is valid
+                VerificationHelper.VerifyMaskedBox(PostalCodeTextBox, PostalCodeLabel);
+                return true;
+            } catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
                 return false;
             }
-            // Check to make sure the address is not empty or whitespace
-            if (string.IsNullOrWhiteSpace(address))
-            {
-                MessageBox.Show("Please enter an address.");
-                return false;
-            }
-            // Check to make sure the phone number does not contain underscores
-            string phoneText = PhoneNumberBox.Text;
-            if (!PhoneNumberBox.MaskCompleted || phoneText.Contains('_') || phoneText.Contains(' '))
-            {
-                MessageBox.Show("Please enter a valid phone number.");
-                return false;
-            }
-
-            string postalCode = PostalCodeTextBox.Text;
-            if (!PostalCodeTextBox.MaskCompleted || postalCode.Contains('_') || postalCode.Contains(' '))
-            {
-                MessageBox.Show("Please enter a valid postal code.");
-                return false;
-            }
-
-            return true;
         }
         private void CountryDropDown_SelectedIndexChanged(object sender, EventArgs e)
         {

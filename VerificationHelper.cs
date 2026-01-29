@@ -54,5 +54,14 @@ namespace C969_Appointment_Scheduler
             }
             return value;
         }
+
+        internal static void VerifyMaskedBox(MaskedTextBox maskedTextBox, Label tbLabel)
+        {
+            if (!maskedTextBox.MaskCompleted || maskedTextBox.Text.Contains('_') || maskedTextBox.Text.Contains(' '))
+            {
+                throw new ArgumentException(
+                    $"Please enter a valid {tbLabel.Text}");
+            }
+        }
     }
 }
