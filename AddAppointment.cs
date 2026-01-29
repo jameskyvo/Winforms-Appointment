@@ -134,6 +134,7 @@ namespace C969_Appointment_Scheduler
             _isAdjustingDate = true;
             DateTimeHelper.EnforceBusinessDays(EndDatePicker);
             DateTimeHelper.EnforceEndDateAfterStartDate(StartDatePicker, EndDatePicker);
+            DateTimeHelper.PreventPastScheduling(StartDatePicker);
             _isAdjustingDate = false;
         }
 

@@ -21,6 +21,16 @@ namespace C969_Appointment_Scheduler
             }
         }
 
+        internal static void EnforceRollover(DateTimePicker datePicker, DateTimePicker timePicker, int minHours, int maxHours)
+        {
+            DateTime open = DateTime.Now.Date.AddHours(minHours);
+            DateTime close = DateTime.Now.Date.AddHours(maxHours);
+            if (DateTime.Now > close)
+            {
+                datePicker.Value = datePicker.Value.AddDays(1);
+                timePicker.Value = open;
+            }
+        }
         internal static void EnforceEndDateAfterStartDate(DateTimePicker startDatePicker, DateTimePicker endDatePicker)
         {
             if (startDatePicker.Value > endDatePicker.Value)

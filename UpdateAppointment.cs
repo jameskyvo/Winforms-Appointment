@@ -31,6 +31,8 @@ public partial class UpdateAppointment : Form
         _appointments = appointments;
         _appointment = currentAppointment;
         _repository = repository;
+        DateTimeHelper.EnforceRollover(StartDatePicker, StartTimePicker, 9, 17);
+        DateTimeHelper.EnforceRollover(EndDatePicker, EndTimePicker, 9, 17);
         DateTimeHelper.EnforceBusinessHours(StartTimePicker);
         DateTimeHelper.EnforceBusinessHours(EndTimePicker);
     }
@@ -86,6 +88,7 @@ public partial class UpdateAppointment : Form
         _isAdjustingDate = true;
         DateTimeHelper.EnforceBusinessDays(EndDatePicker);
         DateTimeHelper.EnforceEndDateAfterStartDate(StartDatePicker, EndDatePicker);
+        DateTimeHelper.PreventPastScheduling(EndDatePicker);
         _isAdjustingDate = false;
     }
 
@@ -135,6 +138,9 @@ public partial class UpdateAppointment : Form
         StartTimePicker.Value = _appointment.Start;
         EndTimePicker.Value = _appointment.End;
         UserDropDown.SelectedValue = _appointment.UserId;
+
+        DateTimeHelper.EnforceRollover(StartDatePicker, StartTimePicker, 9, 17);
+        DateTimeHelper.EnforceRollover(EndDatePicker, EndTimePicker, 9, 17);
     }
 
     private void UpdateButton_Click(object sender, EventArgs e)
